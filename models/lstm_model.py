@@ -397,8 +397,11 @@ class LSTMModel(BaseTimeSeriesModel):
         # Load weights
         self.network.load_state_dict(checkpoint['model_state_dict'])
 
-        # Load optimizer state
-        if self.optimizer is not None:
+        # Recreate optimizer and load its state (for resume training)
+        if 'optimizer_state_dict' in checkpoint:
+            self.optimizer = torch.optim.Adam(
+                self.network.parameters(), lr=config.get('learning_rate', 0.001)
+            )
             self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
 
         # Load training history
