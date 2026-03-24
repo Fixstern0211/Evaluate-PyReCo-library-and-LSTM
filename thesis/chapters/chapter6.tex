@@ -1,0 +1,72 @@
+\section{Conclusion\label{chapter6}}
+
+% ============================================================================
+\subsection{Summary of Key Findings}
+\label{sec:summary}
+% ============================================================================
+
+This thesis presented a systematic comparison of Echo-State Networks (implemented via the pyReCo library) and LSTM networks for chaotic time-series prediction under matched total parameter budgets. A total of 417 experiments were conducted across three benchmark datasets (Lorenz, Mackey-Glass, Santa Fe), three parameter budget levels (${\sim}$1K, ${\sim}$10K, ${\sim}$50K), and varying data availability (1\,000--10\,000 samples), with five random seeds each and full statistical analysis.
+
+The principal findings are:
+
+\begin{enumerate}
+    \item \textbf{Performance is strongly dataset-dependent.} PyReCo significantly outperforms LSTM on synthetic chaotic systems---Lorenz (R\textsuperscript{2} = 0.999 vs.\ 0.825) and Mackey-Glass (R\textsuperscript{2} = 0.987 vs.\ 0.942)---while LSTM significantly outperforms PyReCo on the real-world Santa Fe laser dataset (R\textsuperscript{2} = 0.934 vs.\ 0.770). All differences are statistically significant ($p < 0.05$) with large effect sizes (Cohen's $d > 2.0$).
+
+    \item \textbf{PyReCo is more data-efficient on synthetic data.} ESNs achieve high accuracy with as few as 1\,000 training samples on the Lorenz and Mackey-Glass systems, while LSTMs require substantially more data to approach comparable performance. On the Santa Fe dataset, LSTM benefits more from additional data.
+
+    \item \textbf{Training efficiency exhibits a crossover.} When measured by training time with optimal parameters (the primary metric), PyReCo is up to 32$\times$ faster at small parameter budgets due to ridge regression training, but LSTM becomes 2.4$\times$ faster at large budgets due to the pyReCo library's quadratic scaling with reservoir size. LSTM additionally offers 50--560$\times$ faster inference across all budgets. However, PyReCo's hyperparameter tuning cost grows steeply with reservoir size (43 minutes at the large budget vs.\ 5 minutes for LSTM), reflecting the higher sensitivity of ESNs to hyperparameter choices.
+
+    \item \textbf{Multi-step prediction degrades universally.} Both models lose predictive power at long horizons (50 steps), consistent with the positive Lyapunov exponents of the benchmark systems. PyReCo maintains an advantage at short-to-medium horizons on synthetic data.
+
+    \item \textbf{Total parameter matching enables fair comparison.} By controlling for total model capacity rather than trainable parameters alone, this thesis demonstrates that ESNs achieve competitive or superior performance with only 1--10\% trainable parameters on well-characterized dynamical systems.
+\end{enumerate}
+
+% ============================================================================
+\subsection{Practical Recommendations}
+\label{sec:recommendations}
+% ============================================================================
+
+Based on the experimental evidence, the following recommendations guide model selection for chaotic time-series prediction:
+
+\begin{table}[H]
+\centering
+\caption{Practical model selection guide based on experimental findings.}
+\label{tab:recommendations}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Scenario & Recommended Model & Confidence \\
+\midrule
+Known chaotic ODE/DDE system      & PyReCo (ESN) & High \\
+Synthetic time series, clean data & PyReCo (ESN) & High \\
+Real-world sensor/experimental data & LSTM        & High \\
+Limited training data ($<$ 2\,000 samples) & PyReCo (ESN) & Medium \\
+Rapid retraining needed           & PyReCo (ESN) & Medium \\
+Latency-critical inference        & LSTM         & High \\
+Large model budget ($>$ 50K params) & LSTM        & Medium \\
+Unknown data characteristics      & Evaluate both & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The choice between PyReCo and LSTM should be guided primarily by the \emph{dataset characteristics}---whether the data comes from a known dynamical system or a complex real-world process---rather than by a blanket architectural preference.
+
+% ============================================================================
+\subsection{Future Work}
+\label{sec:future}
+% ============================================================================
+
+Several directions could extend the findings of this thesis:
+
+\begin{itemize}
+    \item \textbf{Deep ESN architectures}: Multi-layer or hierarchical ESNs could potentially improve performance on complex real-world data by learning multi-scale representations, while retaining the fast training advantage.
+
+    \item \textbf{Transformer comparison}: Attention-based architectures have shown strong performance on sequence tasks. Including Transformers in the comparison would provide a more complete picture of the architecture landscape.
+
+    \item \textbf{Additional datasets}: Extending the benchmark to weather data, financial time series, and biological signals would test the generality of the dataset-dependent performance pattern.
+
+    \item \textbf{Hybrid RC-LSTM architectures}: Combining a reservoir front-end with a trainable LSTM readout could potentially combine the strengths of both paradigms: fast feature extraction via reservoir dynamics and flexible pattern learning via gradient-based optimization.
+
+    \item \textbf{Online/incremental learning}: Evaluating both architectures in a streaming setting, where the model must adapt to non-stationary dynamics, would be highly relevant for real-world deployment.
+
+    \item \textbf{Trainable parameter matching}: Conducting a complementary study with matched trainable (rather than total) parameters would provide additional insight into the role of reservoir size versus optimization flexibility.
+\end{itemize}

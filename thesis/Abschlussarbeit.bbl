@@ -1,0 +1,210 @@
+\begin{thebibliography}{10}
+
+\bibitem{strogatz2018nonlinear}
+Steven~H Strogatz.
+\newblock {\em Nonlinear Dynamics and Chaos: With Applications to Physics,
+  Biology, Chemistry, and Engineering}.
+\newblock CRC Press, 2 edition, 2018.
+
+\bibitem{wolf1985determining}
+Alan Wolf, Jack~B Swift, Harry~L Swinney, and John~A Vastano.
+\newblock Determining {Lyapunov} exponents from a time series.
+\newblock {\em Physica D: Nonlinear Phenomena}, 16(3):285--317, 1985.
+
+\bibitem{lorenz1963deterministic}
+Edward~N Lorenz.
+\newblock Deterministic nonperiodic flow.
+\newblock {\em Journal of the Atmospheric Sciences}, 20(2):130--141, 1963.
+
+\bibitem{mackeyglass1977}
+Michael~C Mackey and Leon Glass.
+\newblock Oscillation and chaos in physiological control systems.
+\newblock {\em Science}, 197(4300):287--289, 1977.
+
+\bibitem{weigend1994time}
+Andreas~S Weigend and Neil~A Gershenfeld.
+\newblock {\em Time Series Prediction: Forecasting the Future and Understanding
+  the Past}.
+\newblock Addison-Wesley, Reading, MA, 1994.
+
+\bibitem{hubner1989dimensions}
+U~H{\"u}bner, NB~Abraham, and CO~Weiss.
+\newblock Dimensions and entropies of chaotic intensity pulsations in a
+  single-mode far-infrared {NH\textsubscript{3}} laser.
+\newblock {\em Physical Review A}, 40(11):6354--6365, 1989.
+
+\bibitem{bengio1994learning}
+Yoshua Bengio, Patrice Simard, and Paolo Frasconi.
+\newblock Learning long-term dependencies with gradient descent is difficult.
+\newblock {\em IEEE Transactions on Neural Networks}, 5(2):157--166, 1994.
+
+\bibitem{pascanu2013difficulty}
+Razvan Pascanu, Tomas Mikolov, and Yoshua Bengio.
+\newblock On the difficulty of training recurrent neural networks.
+\newblock {\em Proceedings of the 30th International Conference on Machine
+  Learning}, pages 1310--1318, 2013.
+
+\bibitem{hochreiter1997long}
+Sepp Hochreiter and J{\"u}rgen Schmidhuber.
+\newblock Long short-term memory.
+\newblock {\em Neural Computation}, 9(8):1735--1780, 1997.
+
+\bibitem{gers2000learning}
+Felix~A Gers, J{\"u}rgen Schmidhuber, and Fred Cummins.
+\newblock Learning to forget: Continual prediction with {LSTM}.
+\newblock {\em Neural Computation}, 12(10):2451--2471, 2000.
+
+\bibitem{greff2017lstm}
+Klaus Greff, Rupesh~K Srivastava, Jan Koutn{\'i}k, Bas~R Steunebrink, and
+  J{\"u}rgen Schmidhuber.
+\newblock {LSTM}: A search space odyssey.
+\newblock {\em IEEE Transactions on Neural Networks and Learning Systems},
+  28(10):2222--2232, 2017.
+
+\bibitem{goodfellow2016deep}
+Ian Goodfellow, Yoshua Bengio, and Aaron Courville.
+\newblock {\em Deep Learning}.
+\newblock MIT Press, 2016.
+
+\bibitem{hermans2013training}
+Michiel Hermans and Benjamin Schrauwen.
+\newblock Training and analysing deep recurrent neural networks.
+\newblock In {\em Advances in Neural Information Processing Systems},
+  volume~26, 2013.
+
+\bibitem{kingma2015adam}
+Diederik~P Kingma and Jimmy Ba.
+\newblock Adam: A method for stochastic optimization.
+\newblock {\em Proceedings of the 3rd International Conference on Learning
+  Representations}, 2015.
+
+\bibitem{masters2018revisiting}
+Dominic Masters and Carlo Luschi.
+\newblock Revisiting small batch training for deep neural networks.
+\newblock {\em arXiv preprint arXiv:1804.07612}, 2018.
+
+\bibitem{zaremba2014recurrent}
+Wojciech Zaremba, Ilya Sutskever, and Oriol Vinyals.
+\newblock Recurrent neural network regularization.
+\newblock {\em arXiv preprint arXiv:1409.2329}, 2014.
+
+\bibitem{prechelt1998early}
+Lutz Prechelt.
+\newblock Early stopping --- but when?
+\newblock In {\em Neural Networks: Tricks of the Trade}, pages 55--69.
+  Springer, Berlin, Heidelberg, 1998.
+
+\bibitem{lukosevicius2009reservoir}
+Mantas Luko{\v{s}}evi{\v{c}}ius and Herbert Jaeger.
+\newblock Reservoir computing approaches to recurrent neural network training.
+\newblock volume~3, pages 127--149. Elsevier, 2009.
+
+\bibitem{tanaka2019recent}
+Gouhei Tanaka, Toshiyuki Yamane, Jean~Benoit H{\'e}roux, Ryosho Nakane, Naoki
+  Kanazawa, Seiji Takeda, Hidetoshi Numata, Daiju Nakano, and Akira Hirose.
+\newblock Recent advances in physical reservoir computing: A review.
+\newblock {\em Neural Networks}, 115:100--123, 2019.
+
+\bibitem{jaeger2001echo}
+Herbert Jaeger.
+\newblock The ``echo state'' approach to analysing and training recurrent
+  neural networks.
+\newblock Technical Report 148, German National Research Center for Information
+  Technology, Bonn, Germany, 2001.
+
+\bibitem{maass2002real}
+Wolfgang Maass, Thomas Natschl{\"a}ger, and Henry Markram.
+\newblock Real-time computing without stable states: A new framework for neural
+  computation based on perturbations.
+\newblock {\em Neural Computation}, 14(11):2531--2560, 2002.
+
+\bibitem{lukosevicius2012practical}
+Mantas Luko{\v{s}}evi{\v{c}}ius.
+\newblock A practical guide to applying echo state networks.
+\newblock In {\em Neural Networks: Tricks of the Trade}, pages 659--686.
+  Springer, Berlin, Heidelberg, 2012.
+
+\bibitem{tikhonov1963solution}
+Andrey~N Tikhonov.
+\newblock Solution of incorrectly formulated problems and the regularization
+  method.
+\newblock {\em Soviet Mathematics Doklady}, 4:1035--1038, 1963.
+
+\bibitem{matzner2022hyperparameter}
+Filip Matzner.
+\newblock Hyperparameter tuning in echo state networks.
+\newblock In {\em Proceedings of the Genetic and Evolutionary Computation
+  Conference (GECCO '22)}, pages 404--412. ACM, 2022.
+
+\bibitem{mwamsojo2024stochastic}
+Goodfellow~E Mwamsojo, Allen~R Mushi, and Neema~N Mussa.
+\newblock A stochastic optimization technique for hyperparameter tuning in
+  reservoir computing.
+\newblock {\em Neurocomputing}, 574:127262, 2024.
+
+\bibitem{jaeger2004harnessing}
+Herbert Jaeger and Harald Haas.
+\newblock Harnessing nonlinearity: Predicting chaotic systems and saving energy
+  in wireless communication.
+\newblock {\em Science}, 304(5667):78--80, 2004.
+
+\bibitem{pathak2018model}
+Jaideep Pathak, Brian Hunt, Michelle Girvan, Zhixin Lu, and Edward Ott.
+\newblock Model-free prediction of large spatiotemporally chaotic systems from
+  data: A reservoir computing approach.
+\newblock {\em Physical Review Letters}, 120(2):024102, 2018.
+
+\bibitem{vlachas2020backpropagation}
+Pantelis~R Vlachas, Jaideep Pathak, Brian~R Hunt, Themistoklis~P Sapsis,
+  Michelle Girvan, Edward Ott, and Petros Koumoutsakos.
+\newblock Backpropagation algorithms and reservoir computing in recurrent
+  neural networks for the forecasting of complex spatiotemporal dynamics.
+\newblock {\em Neural Networks}, 126:191--217, 2020.
+
+\bibitem{chattopadhyay2020data}
+Ashesh Chattopadhyay, Pedram Hassanzadeh, and Devika Subramanian.
+\newblock Data-driven predictions of a multiscale {Lorenz} 96 chaotic system
+  using machine-learning methods: Reservoir computing, artificial neural
+  network, and long short-term memory network.
+\newblock {\em Nonlinear Processes in Geophysics}, 27(3):373--389, 2020.
+
+\bibitem{jirak2023echo}
+Doreen Jirak, Stephan Tietz, Hazem Ali, and Stefan Wermter.
+\newblock Echo state networks and long short-term memory for continuous gesture
+  recognition: A comparative study.
+\newblock {\em Cognitive Computation}, 15(5):1427--1439, 2023.
+
+\bibitem{kumar2025forecasting}
+Sunil Kumar and Rishi Kaushal.
+\newblock Forecasting crude oil prices using reservoir computing models.
+\newblock {\em Computational Economics}, 66(3):2543--2563, 2025.
+
+\bibitem{wringe2025benchmarks}
+Oliver Wringe, Martin~A Trefzer, and Susan Sherborne~Stepney.
+\newblock Reservoir computing benchmarks: A review, a taxonomy, and a codebase.
+\newblock {\em International Journal of Parallel, Emergent and Distributed
+  Systems}, 40(4):313--351, 2025.
+
+\bibitem{gal2016dropout}
+Yarin Gal and Zoubin Ghahramani.
+\newblock A theoretically grounded application of dropout in recurrent neural
+  networks.
+\newblock {\em Advances in Neural Information Processing Systems}, 29, 2016.
+
+\bibitem{wilcoxon1945individual}
+Frank Wilcoxon.
+\newblock Individual comparisons by ranking methods.
+\newblock {\em Biometrics Bulletin}, 1(6):80--83, 1945.
+
+\bibitem{cohen1988statistical}
+Jacob Cohen.
+\newblock Statistical power analysis for the behavioral sciences.
+\newblock 1988.
+
+\bibitem{bertschinger2004real}
+Nils Bertschinger and Thomas Natschl{\"a}ger.
+\newblock Real-time computation at the edge of chaos in recurrent neural
+  networks.
+\newblock {\em Neural Computation}, 16(7):1413--1436, 2004.
+
+\end{thebibliography}

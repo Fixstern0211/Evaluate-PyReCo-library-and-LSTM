@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# Experiment Results
+results_final/
+results_advanced/
+results_comprehensive/
+results/
+
+# Logs
+*.log
+experiments.log
+experiments_resume.log
+
+# Temporary and backup files
+backup/
+archive/
+__pycache__/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Data files (large)
+*.pkl
+*.h5
+*.hdf5
+
+# CodeCarbon emissions tracking
+emissions.csv
+emissions.csv.bak
+emissions.csv_*.bak

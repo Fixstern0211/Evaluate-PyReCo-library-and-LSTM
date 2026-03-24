@@ -1,0 +1,111 @@
+\documentclass[bibtotoc,liststotoc,BCOR=5mm,DIV=12]{article}
+
+% use this declaration to set specific page margins
+%\usepackage[a4paper , lmargin = {2.7cm} , rmargin = {2.9cm} , tmargin = {2.7cm} , bmargin = {4.6cm} ]{geometry}
+\usepackage[a4paper]{geometry}
+
+\setlength{\parskip}{\baselineskip}%
+\setlength{\parindent}{0pt}
+\usepackage[ngerman, english]{babel}
+\usepackage{bibgerm}
+\usepackage[section]{placeins}
+\usepackage[T1]{fontenc} % german characters
+
+\usepackage{helvet} % Include the helvet package
+\renewcommand{\rmdefault}{phv} % Helvetica for the main text
+\renewcommand{\sfdefault}{phv} % Helvetica for sans-serif
+
+\usepackage{graphicx} 				% it's recommended to use PDF images but you can use JPG or PNG as well
+\usepackage{url}           		% format URLs
+\usepackage[hidelinks]{hyperref} 				% create hyperlinks
+\usepackage{listings, color}	% for source code
+% two figures next to each other (example: figure 3a), figure 3b)
+\usepackage{scrlayer-scrpage}					% header and footer line
+\usepackage{todonotes}
+\usepackage{setspace}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{siunitx}
+\usepackage{float}
+% header and footer line - no header & footer line on pages where a new chapter starts
+\captionsetup{labelfont=bf}
+\pagestyle{scrheadings}
+\automark[subsection]{section}
+\ohead{\headmark}
+\ihead{Heng Zhang}
+\ofoot[]{\thepage}
+\onehalfspacing
+
+% set path where images are stored
+\graphicspath{{./img/}}
+
+
+\begin{document}
+% ---------------------------------------------------------------
+    \include{./misc/titlepage}
+    \thispagestyle{empty}
+    \clearpage
+    
+    
+    \include{./misc/self-assertion} 
+    \thispagestyle{empty}
+    \clearpage
+    
+    
+    \include{./misc/abstract}
+    \thispagestyle{empty}
+    \clearpage
+    
+    \include{./misc/abstract_de}
+    \thispagestyle{empty}
+    
+    
+    \tableofcontents
+    \thispagestyle{empty}
+    \newpage
+
+    
+    \listoffigures
+    \thispagestyle{empty}
+    \newpage
+    
+    \listoftables
+    \thispagestyle{empty}
+    \newpage
+
+    \input{./misc/acronyms}
+    \thispagestyle{empty}
+    \newpage
+
+% --------------------------------------------------------------
+
+
+    \pagenumbering{arabic}
+    \input{./chapters/chapter1}
+    \newpage
+    \input{./chapters/chapter2}
+    \newpage
+    \input{./chapters/chapter3}
+    \newpage
+    \input{./chapters/chapter4}
+    \newpage
+    \input{./chapters/chapter5}
+    \newpage
+    \input{./chapters/chapter6}
+
+% ---------------------------------------------------------------
+
+		
+		% if you want to provide a glossary with explanations of important terms put it in here
+
+    \bibliographystyle{unsrt}
+    \newpage
+    \pagenumbering{gobble}
+    \bibliography{./bib/manual}
+    \input{./misc/annex}
+
+\end{document}

@@ -1,0 +1,162 @@
+\newpage
+\appendix
+\pagenumbering{roman}
+\section*{Appendix}
+\addcontentsline{toc}{section}{Appendix}
+
+% ============================================================================
+\subsection*{A. PyReCo Hyperparameter Search Grids}
+\addcontentsline{toc}{subsection}{A. PyReCo Hyperparameter Search Grids}
+% ============================================================================
+
+The PyReCo hyperparameter grids are dataset-specific, reflecting the different optimal operating regions for each chaotic system. Each grid yields 36 combinations ($3 \times 3 \times 2 \times 2$), evaluated via 5-fold forward-chaining cross-validation.
+
+\begin{table}[H]
+\centering
+\caption{PyReCo hyperparameter grid for the Lorenz dataset.}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Hyperparameter & Values \\
+\midrule
+Spectral radius & 0.8, 0.9, 1.0 \\
+Leakage rate    & 0.4, 0.5, 0.6 \\
+Density         & 0.05, 0.1 \\
+Input fraction  & 0.5, 0.75 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{PyReCo hyperparameter grid for the Mackey-Glass dataset.}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Hyperparameter & Values \\
+\midrule
+Spectral radius & 0.7, 0.8, 0.9 \\
+Leakage rate    & 0.2, 0.3, 0.4 \\
+Density         & 0.1, 0.15 \\
+Input fraction  & 0.5, 0.75 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{PyReCo hyperparameter grid for the Santa Fe dataset.}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Hyperparameter & Values \\
+\midrule
+Spectral radius & 0.7, 0.8, 0.9 \\
+Leakage rate    & 0.5, 0.6, 0.7 \\
+Density         & 0.05, 0.1 \\
+Input fraction  & 0.5, 0.75 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================================
+\subsection*{B. Detailed Statistical Results}
+\addcontentsline{toc}{subsection}{B. Detailed Statistical Results}
+% ============================================================================
+
+Table~\ref{tab:stat_lorenz} presents the detailed statistical analysis for the Lorenz dataset at the default training fraction (0.7).
+
+\begin{table}[H]
+\centering
+\caption{Statistical comparison for Lorenz dataset (train fraction 0.7, $n=5$ seeds).}
+\label{tab:stat_lorenz}
+\small
+\begin{tabular}{@{}llrrrl@{}}
+\toprule
+Scale & Metric & PyReCo & LSTM & $p$-value & Cohen's $d$ \\
+\midrule
+\multirow{2}{*}{Small}
+    & MSE  & 0.0042 & 0.0851 & 0.0001*** & $-10.3$ \\
+    & R\textsuperscript{2} & 0.9856 & 0.7096 & --- & --- \\
+\midrule
+\multirow{2}{*}{Medium}
+    & MSE  & 0.0027 & 0.0549 & 0.0015** & $-4.7$ \\
+    & R\textsuperscript{2} & 0.9908 & 0.8124 & --- & --- \\
+\midrule
+\multirow{2}{*}{Large}
+    & MSE  & 0.0019 & 0.0609 & 0.0000*** & $-28.9$ \\
+    & R\textsuperscript{2} & 0.9936 & 0.7922 & --- & --- \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.3em}
+\footnotesize *** $p<0.001$, ** $p<0.01$, * $p<0.05$
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Statistical comparison for Mackey-Glass dataset (train fraction 0.7, $n=5$ seeds).}
+\label{tab:stat_mg}
+\small
+\begin{tabular}{@{}llrrrl@{}}
+\toprule
+Scale & Metric & PyReCo & LSTM & $p$-value & Cohen's $d$ \\
+\midrule
+\multirow{2}{*}{Small}
+    & MSE  & 0.0180 & 0.1184 & 0.0567 ns & $-1.7$ \\
+    & R\textsuperscript{2} & 0.9792 & 0.8643 & --- & --- \\
+\midrule
+\multirow{2}{*}{Medium}
+    & MSE  & 0.0179 & 0.0300 & 0.1315 ns & $-1.2$ \\
+    & R\textsuperscript{2} & 0.9794 & 0.9645 & --- & --- \\
+\midrule
+\multirow{2}{*}{Large}
+    & MSE  & 0.0185 & 0.0656 & 0.0597 ns & $-1.6$ \\
+    & R\textsuperscript{2} & 0.9787 & 0.9265 & --- & --- \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.3em}
+\footnotesize *** $p<0.001$, ** $p<0.01$, * $p<0.05$, ns = not significant
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Statistical comparison for Santa Fe dataset (train fraction 0.7, $n=5$ seeds).}
+\label{tab:stat_sf}
+\small
+\begin{tabular}{@{}llrrrl@{}}
+\toprule
+Scale & Metric & PyReCo & LSTM & $p$-value & Cohen's $d$ \\
+\midrule
+\multirow{2}{*}{Small}
+    & MSE  & 0.2265 & 0.0797 & 0.0009*** & $5.7$ \\
+    & R\textsuperscript{2} & 0.7963 & 0.9283 & --- & --- \\
+\midrule
+\multirow{2}{*}{Medium}
+    & MSE  & 0.2507 & 0.0375 & 0.0001*** & $13.7$ \\
+    & R\textsuperscript{2} & 0.7745 & 0.9663 & --- & --- \\
+\midrule
+\multirow{2}{*}{Large}
+    & MSE  & 0.2521 & 0.2612 & 0.8066 ns & $-0.2$ \\
+    & R\textsuperscript{2} & 0.7733 & 0.7651 & --- & --- \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.3em}
+\footnotesize *** $p<0.001$, ** $p<0.01$, * $p<0.05$, ns = not significant
+\end{table}
+
+% ============================================================================
+\subsection*{C. Software and Hardware}
+\addcontentsline{toc}{subsection}{C. Software and Hardware}
+% ============================================================================
+
+All experiments were conducted using the following software stack:
+\begin{itemize}
+    \item Python 3.11
+    \item PyTorch (LSTM implementation)
+    \item pyReCo library (ESN implementation, based on reservoirpy)
+    \item scikit-learn (preprocessing, metrics)
+    \item NumPy, SciPy (numerical computation)
+    \item Matplotlib (visualization)
+\end{itemize}
+
+Random seeds (42, 43, 44, 45, 46) were fixed for all random number generators (Python, NumPy, PyTorch) to ensure full reproducibility. The complete source code and experiment scripts are available in the accompanying repository.

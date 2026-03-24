@@ -1,0 +1,17 @@
+\thispagestyle{empty}
+\vspace*{0.2cm}
+
+\begin{center}
+    \textbf{Zusammenfassung}
+\end{center}
+
+\vspace*{0.5cm}
+
+\noindent
+Datengetriebene Methoden sind für die Modellierung und Vorhersage nichtlinearer dynamischer Systeme unverzichtbar geworden. Long Short-Term Memory (LSTM) Netzwerke werden aufgrund ihrer Fähigkeit, zeitliche Abhängigkeiten zu erfassen, häufig für Sequenzvorhersagen eingesetzt. Sie erfordern jedoch typischerweise große Datensätze und zahlreiche trainierbare Parameter, was zu erheblichen Rechen- und Umweltkosten führt. Reservoir Computing (RC), insbesondere Echo-State Networks (ESNs), bietet eine ressourcenschonende Alternative, bei der nur die Ausgangsschicht trainiert wird, was schnelleres Lernen und robuste Generalisierung bei begrenzten Daten ermöglicht. Ein systematischer Vergleich dieser Paradigmen unter gleichen Modellkapazitäten und Datenverfügbarkeiten wurde bisher jedoch kaum untersucht.
+
+\noindent
+Diese Arbeit präsentiert einen quantitativen Vergleich von Echo-State Networks (ESNs), implementiert mit der pyReCo-Bibliothek, und LSTM-Architekturen auf drei kanonischen chaotischen Zeitreihen-Benchmarks: dem Lorenz-System, dem Mackey-Glass-System und dem Santa-Fe-Laser-Datensatz. Beide Modellfamilien werden unter gleichen Gesamtparameterbudgets (klein: ${\sim}1$K, mittel: ${\sim}10$K, groß: ${\sim}50$K Parameter) und variierenden Trainingsdatengrößen (1\,000--10\,000 Datenpunkte) evaluiert. Die Leistung wird anhand von Vorhersagegenauigkeit (MSE, R\textsuperscript{2}), Recheneffizienz und Nachhaltigkeitsmetriken über 417 Experimente mit jeweils fünf zufälligen Seeds bewertet. Die statistische Signifikanz wird durch gepaarte t-Tests und Wilcoxon-Vorzeichen-Rang-Tests mit Cohens d Effektstärken ermittelt.
+
+\noindent
+Die Ergebnisse zeigen ein stark datensatzabhängiges Bild: ESNs erreichen nahezu perfekte Vorhersagen auf chaotischen synthetischen Systemen (Lorenz: R\textsuperscript{2}\,$=$\,0,999, Mackey-Glass: R\textsuperscript{2}\,$=$\,0,987) und übertreffen LSTM signifikant (R\textsuperscript{2}\,$=$\,0,825 bzw.\ 0,942, $p < 0{,}001$). Umgekehrt dominiert LSTM auf dem realen Santa-Fe-Laser-Datensatz (R\textsuperscript{2}\,$=$\,0,934 vs.\ 0,770, $p < 0{,}001$). ESNs sind bei kleinen Parameterbudgets bis zu 40$\times$ schneller zu trainieren, während LSTM bei großen Budgets schneller wird. Alle signifikanten Unterschiede weisen große Effektstärken auf (Cohens d\,$>$\,2,0). Diese Ergebnisse zeigen, dass die Modellwahl für chaotische Zeitreihenvorhersagen von den Datensatzeigenschaften abhängen sollte, und heben Reservoir Computing als recheneffiziente Alternative für gut charakterisierte dynamische Systeme hervor.

@@ -1,0 +1,916 @@
+{
+  "dataset": "lorenz",
+  "budget": 1000,
+  "num_nodes": 100,
+  "fraction_output": 1.0,
+  "seed": 42,
+  "n_splits": 2,
+  "grid": {
+    "num_nodes": [
+      100
+    ],
+    "spec_rad": [
+      0.7,
+      0.8,
+      0.9
+    ],
+    "leakage_rate": [
+      0.2,
+      0.3,
+      0.4,
+      0.5
+    ],
+    "density": [
+      0.05,
+      0.1
+    ],
+    "fraction_input": [
+      0.5,
+      0.75
+    ],
+    "fraction_output": [
+      1.0
+    ]
+  },
+  "n_combinations": 48,
+  "tune_time_seconds": 5.302067041397095,
+  "best_params": {
+    "num_nodes": 100,
+    "density": 0.05,
+    "activation": "tanh",
+    "spec_rad": 0.8,
+    "leakage_rate": 0.3,
+    "fraction_input": 0.5,
+    "fraction_output": 1.0,
+    "optimizer": "ridge"
+  },
+  "best_cv_mse": 0.002016786923665808,
+  "cv_std": null,
+  "all_results": [
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.7,
+        "leakage_rate": 0.2,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.005589306602933827,
+      "cv_std": 0.0030779786708080847,
+      "fold_scores": [
+        0.008667285273741911,
+        0.0025113279321257423
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.7,
+        "leakage_rate": 0.2,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.00744762603951745,
+      "cv_std": 0.004268730372403889,
+      "fold_scores": [
+        0.011716356411921338,
+        0.003178895667113561
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.7,
+        "leakage_rate": 0.2,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.006675121748165888,
+      "cv_std": 0.0019192250942686759,
+      "fold_scores": [
+        0.008594346842434564,
+        0.004755896653897212
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.7,
+        "leakage_rate": 0.2,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.013119474737112417,
+      "cv_std": 0.0069594394247982,
+      "fold_scores": [
+        0.020078914161910617,
+        0.0061600353123142165
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.7,
+        "leakage_rate": 0.3,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.004244757082689224,
+      "cv_std": 0.0018955566143498564,
+      "fold_scores": [
+        0.00614031369703908,
+        0.002349200468339367
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.7,
+        "leakage_rate": 0.3,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.006465704619132975,
+      "cv_std": 0.0034934463084487985,
+      "fold_scores": [
+        0.009959150927581773,
+        0.002972258310684177
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.7,
+        "leakage_rate": 0.3,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.008794321956822802,
+      "cv_std": 0.004196849549677722,
+      "fold_scores": [
+        0.012991171506500525,
+        0.0045974724071450816
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.7,
+        "leakage_rate": 0.3,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.010116903807134954,
+      "cv_std": 0.005932582679739227,
+      "fold_scores": [
+        0.01604948648687418,
+        0.004184321127395728
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.7,
+        "leakage_rate": 0.4,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.005825501566138639,
+      "cv_std": 0.002781970038856401,
+      "fold_scores": [
+        0.00860747160499504,
+        0.0030435315272822378
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.7,
+        "leakage_rate": 0.4,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.008517662308241632,
+      "cv_std": 0.0013367165131210343,
+      "fold_scores": [
+        0.007180945795120597,
+        0.009854378821362666
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.7,
+        "leakage_rate": 0.4,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.004547131435269898,
+      "cv_std": 0.0027394452309315045,
+      "fold_scores": [
+        0.007286576666201402,
+        0.0018076862043383927
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.7,
+        "leakage_rate": 0.4,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.009445525104311688,
+      "cv_std": 0.004493630628443872,
+      "fold_scores": [
+        0.01393915573275556,
+        0.004951894475867816
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.7,
+        "leakage_rate": 0.5,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.006912635859825926,
+      "cv_std": 0.00443525918588182,
+      "fold_scores": [
+        0.011347895045707747,
+        0.002477376673944106
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.7,
+        "leakage_rate": 0.5,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.007859517891371527,
+      "cv_std": 0.0009835126197054495,
+      "fold_scores": [
+        0.008843030511076976,
+        0.006876005271666077
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.7,
+        "leakage_rate": 0.5,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.005616469780119628,
+      "cv_std": 0.0030152455035338524,
+      "fold_scores": [
+        0.00863171528365348,
+        0.002601224276585776
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.7,
+        "leakage_rate": 0.5,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.011148889895665821,
+      "cv_std": 0.0024909419641442393,
+      "fold_scores": [
+        0.01363983185981006,
+        0.008657947931521581
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.8,
+        "leakage_rate": 0.2,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.004824548879140385,
+      "cv_std": 0.0027178405410481442,
+      "fold_scores": [
+        0.007542389420188529,
+        0.002106708338092241
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.8,
+        "leakage_rate": 0.2,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.008720023203778243,
+      "cv_std": 0.005239329901624913,
+      "fold_scores": [
+        0.013959353105403156,
+        0.0034806933021533297
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.8,
+        "leakage_rate": 0.2,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.007300126057872735,
+      "cv_std": 0.0044511714933906,
+      "fold_scores": [
+        0.011751297551263334,
+        0.0028489545644821345
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.8,
+        "leakage_rate": 0.2,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.01367337231834451,
+      "cv_std": 0.004650637588823549,
+      "fold_scores": [
+        0.018324009907168058,
+        0.00902273472952096
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.8,
+        "leakage_rate": 0.3,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.002016786923665808,
+      "cv_std": 0.0007285188163623754,
+      "fold_scores": [
+        0.0027453057400281832,
+        0.0012882681073034324
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.8,
+        "leakage_rate": 0.3,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.00741079462583835,
+      "cv_std": 0.005732968355263862,
+      "fold_scores": [
+        0.013143762981102213,
+        0.0016778262705744876
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.8,
+        "leakage_rate": 0.3,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.004123690077552436,
+      "cv_std": 0.00011727295983613016,
+      "fold_scores": [
+        0.004240963037388567,
+        0.004006417117716306
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.8,
+        "leakage_rate": 0.3,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.011399878403598365,
+      "cv_std": 0.005839904088684758,
+      "fold_scores": [
+        0.017239782492283123,
+        0.005559974314913607
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.8,
+        "leakage_rate": 0.4,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.0032981018463780045,
+      "cv_std": 0.00029812113996160864,
+      "fold_scores": [
+        0.0029999807064163956,
+        0.003596222986339613
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.8,
+        "leakage_rate": 0.4,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.013528913592860807,
+      "cv_std": 0.009990555497647342,
+      "fold_scores": [
+        0.023519469090508147,
+        0.003538358095213466
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.8,
+        "leakage_rate": 0.4,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.0046784274664192224,
+      "cv_std": 0.003214388710364493,
+      "fold_scores": [
+        0.007892816176783715,
+        0.0014640387560547296
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.8,
+        "leakage_rate": 0.4,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.01110308951451572,
+      "cv_std": 0.006558434752329508,
+      "fold_scores": [
+        0.017661524266845228,
+        0.004544654762186212
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.8,
+        "leakage_rate": 0.5,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.003926764129032093,
+      "cv_std": 0.002587530151047664,
+      "fold_scores": [
+        0.0065142942800797575,
+        0.0013392339779844287
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.8,
+        "leakage_rate": 0.5,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.003155432281584088,
+      "cv_std": 0.0014059684787479888,
+      "fold_scores": [
+        0.004561400760332077,
+        0.0017494638028360994
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.8,
+        "leakage_rate": 0.5,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.004978008901784045,
+      "cv_std": 0.0024910361836478203,
+      "fold_scores": [
+        0.002486972718136225,
+        0.007469045085431865
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.8,
+        "leakage_rate": 0.5,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.003602744091393854,
+      "cv_std": 0.0005693752271124907,
+      "fold_scores": [
+        0.0030333688642813633,
+        0.004172119318506345
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.9,
+        "leakage_rate": 0.2,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.002549763356380992,
+      "cv_std": 0.0008617656256103544,
+      "fold_scores": [
+        0.0034115289819913464,
+        0.0016879977307706375
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.9,
+        "leakage_rate": 0.2,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.011040609385314764,
+      "cv_std": 0.00761197764574494,
+      "fold_scores": [
+        0.018652587031059705,
+        0.0034286317395698243
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.9,
+        "leakage_rate": 0.2,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.005627931395728023,
+      "cv_std": 0.003145108475193582,
+      "fold_scores": [
+        0.008773039870921606,
+        0.002482822920534441
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.9,
+        "leakage_rate": 0.2,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.007551068338483036,
+      "cv_std": 0.005082407706027843,
+      "fold_scores": [
+        0.012633476044510879,
+        0.002468660632455194
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.9,
+        "leakage_rate": 0.3,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.0029673886197466937,
+      "cv_std": 0.0018292309977822536,
+      "fold_scores": [
+        0.0047966196175289475,
+        0.0011381576219644401
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.9,
+        "leakage_rate": 0.3,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.003722715175890995,
+      "cv_std": 0.0016915723945748733,
+      "fold_scores": [
+        0.005414287570465868,
+        0.0020311427813161217
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.9,
+        "leakage_rate": 0.3,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.004653433940777313,
+      "cv_std": 0.0033572586920818685,
+      "fold_scores": [
+        0.008010692632859182,
+        0.0012961752486954448
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.9,
+        "leakage_rate": 0.3,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.011825465629073715,
+      "cv_std": 0.007459839935286146,
+      "fold_scores": [
+        0.01928530556435986,
+        0.00436562569378757
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.9,
+        "leakage_rate": 0.4,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.005020924196691836,
+      "cv_std": 0.00019560472016319627,
+      "fold_scores": [
+        0.00482531947652864,
+        0.005216528916855033
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.9,
+        "leakage_rate": 0.4,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.008252992334982574,
+      "cv_std": 0.0068035803233215154,
+      "fold_scores": [
+        0.015056572658304089,
+        0.001449412011661057
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.9,
+        "leakage_rate": 0.4,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.002840110553559295,
+      "cv_std": 0.0004507059262199853,
+      "fold_scores": [
+        0.0032908164797792803,
+        0.0023894046273393098
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.9,
+        "leakage_rate": 0.4,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.004323347739117315,
+      "cv_std": 0.002754239308957303,
+      "fold_scores": [
+        0.007077587048074618,
+        0.0015691084301600123
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.9,
+        "leakage_rate": 0.5,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.0025755732191444945,
+      "cv_std": 0.0014129633825139525,
+      "fold_scores": [
+        0.003988536601658447,
+        0.001162609836630542
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.05,
+        "activation": "tanh",
+        "spec_rad": 0.9,
+        "leakage_rate": 0.5,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.006641226167837222,
+      "cv_std": 0.003429214284415019,
+      "fold_scores": [
+        0.01007044045225224,
+        0.0032120118834222024
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.9,
+        "leakage_rate": 0.5,
+        "fraction_input": 0.5,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.0044118856900355885,
+      "cv_std": 0.0035366617846041663,
+      "fold_scores": [
+        0.007948547474639755,
+        0.0008752239054314224
+      ]
+    },
+    {
+      "params": {
+        "num_nodes": 100,
+        "density": 0.1,
+        "activation": "tanh",
+        "spec_rad": 0.9,
+        "leakage_rate": 0.5,
+        "fraction_input": 0.75,
+        "fraction_output": 1.0,
+        "optimizer": "ridge"
+      },
+      "cv_mean": 0.005455732373499841,
+      "cv_std": 0.0035766886204448576,
+      "fold_scores": [
+        0.009032420993944698,
+        0.0018790437530549833
+      ]
+    }
+  ],
+  "timestamp": "2025-11-18T01:18:42.516722"
+}

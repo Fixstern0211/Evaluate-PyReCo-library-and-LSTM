@@ -1,0 +1,78 @@
+\babel@toc {english}{}\relax 
+\babel@toc {english}{}\relax 
+\contentsline {section}{List of Abbreviations}{12}{section*.5}%
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Objective}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Thesis Structure}{2}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Background }{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Chaotic Dynamical Systems}{4}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}The Lorenz System}{4}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}The Mackey-Glass System}{5}{subsubsection.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.1.3}The Santa Fe Laser Dataset}{6}{subsubsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.2}Recurrent Neural Networks}{6}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Long Short-Term Memory Networks}{7}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Architecture and Gate Equations}{7}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}Parameter Count}{8}{subsubsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.3}Architecture Design for Time-Series Prediction}{9}{subsubsection.2.3.3}%
+\contentsline {subsubsection}{\numberline {2.3.4}Training}{9}{subsubsection.2.3.4}%
+\contentsline {subsubsection}{\numberline {2.3.5}Strengths and Limitations}{10}{subsubsection.2.3.5}%
+\contentsline {subsection}{\numberline {2.4}Reservoir Computing and Echo-State Networks}{10}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}ESN Architecture}{10}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}The Echo State Property}{11}{subsubsection.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.4.3}Training via Ridge Regression}{11}{subsubsection.2.4.3}%
+\contentsline {subsubsection}{\numberline {2.4.4}Key Hyperparameters}{12}{subsubsection.2.4.4}%
+\contentsline {subsubsection}{\numberline {2.4.5}Parameter Count and Comparison with LSTM}{12}{subsubsection.2.4.5}%
+\contentsline {subsubsection}{\numberline {2.4.6}The pyReCo Library}{13}{subsubsection.2.4.6}%
+\contentsline {subsection}{\numberline {2.5}Related Work}{13}{subsection.2.5}%
+\contentsline {subsubsection}{\numberline {2.5.1}RC for Chaotic Prediction}{14}{subsubsection.2.5.1}%
+\contentsline {subsubsection}{\numberline {2.5.2}Comparative Studies}{14}{subsubsection.2.5.2}%
+\contentsline {subsubsection}{\numberline {2.5.3}Gaps in the Literature}{14}{subsubsection.2.5.3}%
+\contentsline {section}{\numberline {3}Methods}{16}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Experimental Framework Overview}{16}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Dataset Preparation}{17}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Data Generation}{17}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Preprocessing}{17}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Train/Validation/Test Split}{18}{subsubsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.3}Model Configurations}{18}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Parameter Budget Matching Strategy}{18}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}PyReCo Configuration}{19}{subsubsection.3.3.2}%
+\contentsline {subsubsection}{\numberline {3.3.3}LSTM Configuration}{19}{subsubsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.4}Evaluation Metrics}{20}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Prediction Accuracy}{20}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}Multi-Step Prediction}{21}{subsubsection.3.4.2}%
+\contentsline {subsubsection}{\numberline {3.4.3}Computational Efficiency}{22}{subsubsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.5}Statistical Analysis}{22}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Results }{24}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Single-Step Prediction Performance}{24}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Lorenz System}{25}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.1.2}Mackey-Glass System}{25}{subsubsection.4.1.2}%
+\contentsline {subsubsection}{\numberline {4.1.3}Santa Fe Laser Dataset}{25}{subsubsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.2}Data Efficiency Analysis}{26}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}Lorenz System}{27}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}Mackey-Glass System}{27}{subsubsection.4.2.2}%
+\contentsline {subsubsection}{\numberline {4.2.3}Santa Fe Laser Dataset}{28}{subsubsection.4.2.3}%
+\contentsline {subsubsection}{\numberline {4.2.4}Supplementary Validation: Broad Grid Search at Low Data}{28}{subsubsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.3}Multi-Step Prediction}{29}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Training Efficiency}{30}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Training Time with Optimal Parameters}{31}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}Hyperparameter Tuning Cost}{31}{subsubsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.3}Inference Time}{32}{subsubsection.4.4.3}%
+\contentsline {subsubsection}{\numberline {4.4.4}Training Efficiency}{33}{subsubsection.4.4.4}%
+\contentsline {subsection}{\numberline {4.5}Statistical Significance}{33}{subsection.4.5}%
+\contentsline {section}{\numberline {5}Discussion}{36}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Interpretation of Key Findings}{36}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1}Why PyReCo Excels on Synthetic Chaotic Systems}{36}{subsubsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.2}Why LSTM Excels on Real-World Data}{37}{subsubsection.5.1.2}%
+\contentsline {subsection}{\numberline {5.2}Parameter Budget Analysis}{37}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Monotonic Hyperparameter Trends on Chaotic Time Series}{38}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Training Efficiency Trade-offs}{40}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Limitations}{41}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.6}Comparison with Literature}{42}{subsection.5.6}%
+\contentsline {section}{\numberline {6}Conclusion}{43}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Summary of Key Findings}{43}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Practical Recommendations}{44}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Future Work}{44}{subsection.6.3}%
+\contentsline {section}{Appendix}{i}{section*.32}%
+\contentsline {subsection}{A. PyReCo Hyperparameter Search Grids}{i}{section*.33}%
+\contentsline {subsection}{B. Detailed Statistical Results}{ii}{section*.37}%
+\contentsline {subsection}{C. Software and Hardware}{iii}{section*.41}%

@@ -1,0 +1,20 @@
+\babel@toc {english}{}\relax 
+\babel@toc {english}{}\relax 
+\contentsline {table}{\numberline {1}{\ignorespaces Parameter budget levels and corresponding model configurations.}}{18}{table.caption.6}%
+\contentsline {table}{\numberline {2}{\ignorespaces PyReCo hyperparameter search grid (36 combinations).}}{19}{table.caption.7}%
+\contentsline {table}{\numberline {3}{\ignorespaces LSTM hyperparameter search grid (9 combinations).}}{20}{table.caption.8}%
+\contentsline {table}{\numberline {4}{\ignorespaces Single-step prediction performance summary (R\textsuperscript {2}, mean $\pm $ std, 30 runs).}}{24}{table.caption.10}%
+\contentsline {table}{\numberline {5}{\ignorespaces Supplementary broad grid search on the Lorenz system at train\_frac = 0.2 (seed = 42).}}{29}{table.caption.16}%
+\contentsline {table}{\numberline {6}{\ignorespaces Training time with optimal parameters (primary metric, mean over 90 runs per cell).}}{31}{table.caption.19}%
+\contentsline {table}{\numberline {7}{\ignorespaces Hyperparameter tuning time (supplementary metric, mean over 90 runs per cell).}}{31}{table.caption.20}%
+\contentsline {table}{\numberline {8}{\ignorespaces Inference time per sample (mean $\pm $ std).}}{32}{table.caption.21}%
+\contentsline {table}{\numberline {9}{\ignorespaces Summary of statistical analysis across all 54 comparisons.}}{34}{table.caption.25}%
+\contentsline {table}{\numberline {10}{\ignorespaces Monotonic hyperparameter trends observed on chaotic time series.}}{38}{table.caption.28}%
+\contentsline {table}{\numberline {11}{\ignorespaces Dataset-dependent ESN hyperparameter sensitivity.}}{39}{table.caption.29}%
+\contentsline {table}{\numberline {12}{\ignorespaces Practical model selection guide based on experimental findings.}}{44}{table.caption.30}%
+\contentsline {table}{\numberline {13}{\ignorespaces PyReCo hyperparameter grid for the Lorenz dataset.}}{i}{table.caption.34}%
+\contentsline {table}{\numberline {14}{\ignorespaces PyReCo hyperparameter grid for the Mackey-Glass dataset.}}{i}{table.caption.35}%
+\contentsline {table}{\numberline {15}{\ignorespaces PyReCo hyperparameter grid for the Santa Fe dataset.}}{i}{table.caption.36}%
+\contentsline {table}{\numberline {16}{\ignorespaces Statistical comparison for Lorenz dataset (train fraction 0.7, $n=5$ seeds).}}{ii}{table.caption.38}%
+\contentsline {table}{\numberline {17}{\ignorespaces Statistical comparison for Mackey-Glass dataset (train fraction 0.7, $n=5$ seeds).}}{ii}{table.caption.39}%
+\contentsline {table}{\numberline {18}{\ignorespaces Statistical comparison for Santa Fe dataset (train fraction 0.7, $n=5$ seeds).}}{ii}{table.caption.40}%

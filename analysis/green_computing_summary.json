@@ -1,0 +1,87 @@
+{
+  "sources": [
+    "final",
+    "multi_step",
+    "data_efficiency"
+  ],
+  "total_records": 1620,
+  "comparison": {
+    "small": {
+      "pyreco": {
+        "count": 270,
+        "avg_train_time": 1.687043152032075,
+        "avg_tune_time": 3.014901955039413,
+        "avg_r2": 0.9530510269630655,
+        "avg_eval_time": 11.283849716186523,
+        "training_efficiency": 0.8682663693263679
+      },
+      "lstm": {
+        "count": 270,
+        "avg_train_time": 43.378985948032806,
+        "avg_tune_time": 555.2264450991595,
+        "avg_r2": 0.961126628307439,
+        "avg_eval_time": 0.14848031644467954,
+        "training_efficiency": 0.03677241983506759
+      },
+      "ratios": {
+        "train_time_ratio": 25.713011657568085,
+        "training_efficiency_ratio": 23.61124891893732,
+        "r2_diff": -0.008075601344373462
+      }
+    },
+    "medium": {
+      "pyreco": {
+        "count": 270,
+        "avg_train_time": 12.865786224824411,
+        "avg_tune_time": 23.24882319944876,
+        "avg_r2": 0.9557778055664261,
+        "avg_eval_time": 89.26650858720144,
+        "training_efficiency": 0.10981786870107496
+      },
+      "lstm": {
+        "count": 270,
+        "avg_train_time": 29.833279574358905,
+        "avg_tune_time": 374.31885954627285,
+        "avg_r2": 0.9741958000717562,
+        "avg_eval_time": 0.37645814860308613,
+        "training_efficiency": 0.05087562312215196
+      },
+      "ratios": {
+        "train_time_ratio": 2.3188071629846236,
+        "training_efficiency_ratio": 2.1585133203005302,
+        "r2_diff": -0.018417994505330104
+      }
+    },
+    "large": {
+      "pyreco": {
+        "count": 270,
+        "avg_train_time": 71.81758470093763,
+        "avg_tune_time": 130.1046353428452,
+        "avg_r2": 0.9426658224111788,
+        "avg_eval_time": 486.70142866152304,
+        "training_efficiency": 0.0192879159236432
+      },
+      "lstm": {
+        "count": 270,
+        "avg_train_time": 27.816371088557773,
+        "avg_tune_time": 389.97113786361837,
+        "avg_r2": 0.9843315809015815,
+        "avg_eval_time": 1.0250528132473982,
+        "training_efficiency": 0.05743118845149541
+      },
+      "ratios": {
+        "train_time_ratio": 0.387319774357085,
+        "training_efficiency_ratio": 0.3358380804160525,
+        "r2_diff": -0.04166575849040266
+      }
+    }
+  },
+  "overall": {
+    "pyreco_count": 810,
+    "lstm_count": 810,
+    "pyreco_avg_train_time": 28.79013802593137,
+    "lstm_avg_train_time": 33.676212203649825,
+    "pyreco_avg_r2": 0.9504982183135567,
+    "lstm_avg_r2": 0.9732180030935924
+  }
+}

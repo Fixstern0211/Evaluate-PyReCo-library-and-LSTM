@@ -1,0 +1,15 @@
+\babel@toc {english}{}\relax 
+\babel@toc {english}{}\relax 
+\contentsline {figure}{\numberline {1}{\ignorespaces R\textsuperscript {2} scores for single-step prediction across three datasets and three parameter budget levels. Error bars indicate one standard deviation over 30 runs (5 seeds $\times $ multiple training fractions).}}{24}{figure.caption.9}%
+\contentsline {figure}{\numberline {2}{\ignorespaces MSE comparison across datasets and budgets (log scale). Lower is better.}}{26}{figure.caption.11}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Learning curves at medium budget: R\textsuperscript {2} vs.\ data length for both models across all three datasets. Shaded regions indicate $\pm $1 standard deviation.}}{26}{figure.caption.12}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Data efficiency on the Lorenz system: R\textsuperscript {2} vs.\ data length for small, medium, and large budgets.}}{27}{figure.caption.13}%
+\contentsline {figure}{\numberline {5}{\ignorespaces Data efficiency on the Mackey-Glass system: R\textsuperscript {2} vs.\ data length for small, medium, and large budgets.}}{27}{figure.caption.14}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Data efficiency on the Santa Fe dataset: R\textsuperscript {2} vs.\ data length for small, medium, and large budgets.}}{28}{figure.caption.15}%
+\contentsline {figure}{\numberline {7}{\ignorespaces Multi-step prediction: R\textsuperscript {2} vs.\ prediction horizon at medium budget. Shaded regions indicate $\pm $1 standard deviation.}}{29}{figure.caption.17}%
+\contentsline {figure}{\numberline {8}{\ignorespaces Performance degradation with prediction horizon across all budgets. Solid, dashed, and dotted lines represent small, medium, and large budgets respectively.}}{30}{figure.caption.18}%
+\contentsline {figure}{\numberline {9}{\ignorespaces Training efficiency (R\textsuperscript {2} per second of training with optimal parameters) by parameter budget scale. Note the log scale.}}{33}{figure.caption.22}%
+\contentsline {figure}{\numberline {10}{\ignorespaces Training time comparison across datasets and budgets. Note: this figure shows total time including hyperparameter search; see Tables~\ref {tab:training_time}--\ref {tab:tuning_time} for the decomposed metrics.}}{33}{figure.caption.23}%
+\contentsline {figure}{\numberline {11}{\ignorespaces Statistically significant winner (R\textsuperscript {2}) by dataset and parameter budget. All differences are significant at $p < 0.05$.}}{34}{figure.caption.24}%
+\contentsline {figure}{\numberline {12}{\ignorespaces Win count summary across all 54 pairwise comparisons. The dashed line indicates the 50/50 threshold.}}{34}{figure.caption.26}%
+\contentsline {figure}{\numberline {13}{\ignorespaces Parameter budget breakdown for PyReCo and LSTM. PyReCo has only 1--10\% trainable parameters (readout), while LSTM parameters are 100\% trainable.}}{35}{figure.caption.27}%

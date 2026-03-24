@@ -1,0 +1,27 @@
+\section{Introduction\label{chapter1}}
+
+Predicting the future behavior of complex systems is a fundamental challenge in science and engineering. Many real-world phenomena, from weather patterns to financial markets and mechanical systems, exhibit chaotic dynamics characterized by sensitive dependence on initial conditions. Even small uncertainties in measurements can lead to dramatically different long-term outcomes, making accurate forecasting inherently difficult. Traditional physics-based models require detailed knowledge of the underlying governing equations, which are often unknown or too complex to formulate for real-world systems.
+
+In recent years, data-driven approaches have emerged as powerful alternatives for modeling and forecasting nonlinear dynamical systems. Rather than relying on explicit physical laws, these methods learn patterns directly from observed time-series data. Among the most successful approaches are recurrent neural networks (RNNs), which are specifically designed to process sequential information by maintaining an internal memory of past inputs.
+
+Long Short-Term Memory (LSTM) networks have become the dominant architecture for sequence prediction tasks. Introduced by Hochreiter and Schmidhuber in 1997, LSTMs address the vanishing gradient problem that plagued earlier RNNs through specialized gating mechanisms that control the flow of information. This enables them to capture both short-term and long-term temporal dependencies effectively. However, LSTMs come with significant drawbacks: they require large amounts of training data to generalize well, contain numerous trainable parameters that must be optimized through computationally expensive backpropagation, and consume substantial energy during training. As machine learning models grow in scale and application, these computational and environmental costs have become increasingly concerning.
+
+Reservoir Computing (RC) offers a fundamentally different paradigm. In this framework, input signals are projected into a high-dimensional dynamical system called the reservoir, which transforms the inputs through its complex internal dynamics. Crucially, only the output layer (readout) is trained, typically using simple linear regression, while the reservoir weights remain fixed after random initialization. Echo-State Networks (ESNs), introduced by Jaeger in 2001, are the most widely used RC architecture. By avoiding backpropagation through time, ESNs enable extremely fast training, often orders of magnitude faster than LSTMs. Furthermore, they have demonstrated remarkable performance on chaotic time-series prediction with limited training data, suggesting superior data efficiency.
+
+Despite the growing interest in both approaches, a systematic and fair comparison between Reservoir Computing and LSTM architectures remains insufficiently explored. Most existing studies compare models of different sizes or train them on different amounts of data, making it difficult to draw meaningful conclusions about their relative strengths. The critical question of how these architectures perform when constrained to the same total parameter budget and the same training data size has not been adequately addressed.
+
+\subsection{Objective}
+
+This thesis aims to provide a rigorous comparative analysis of Echo-State Networks and LSTM architectures for chaotic time-series prediction under controlled experimental conditions. Specifically, the objectives are:
+
+\begin{itemize}
+    \item To implement and evaluate ESN models using the pyReCo library and LSTM baselines (single-layer and two-layer) on three canonical benchmark systems: the Lorenz system, the Mackey-Glass system, and the Santa Fe laser dataset.
+    \item To compare both architectures under matched total parameter budgets, ensuring a fair assessment of model capacity utilization.
+    \item To investigate data efficiency by training each model with incremental fractions of the available dataset (10\%--100\%) and analyzing the resulting learning curves.
+    \item To evaluate not only prediction accuracy (MSE, MAE) but also computational efficiency and sustainability metrics, addressing the growing importance of ``green'' machine learning.
+    \item To provide statistical validation of the results through paired t-tests and Wilcoxon signed-rank tests.
+\end{itemize}
+
+\subsection{Thesis Structure}
+
+The remainder of this thesis is organized as follows. Chapter~\ref{theory} provides the theoretical background, covering the fundamentals of chaotic dynamical systems, the architecture and mathematics of LSTM networks, and the principles of Reservoir Computing and Echo-State Networks. Prior benchmark studies on the selected datasets are also reviewed. Chapter~\ref{chapter3} describes the methodology, including the experimental setup, data generation and preprocessing, model configurations, parameter matching strategy, and evaluation metrics. Chapter~\ref{chapter4} presents the experimental results, showing prediction accuracy, learning curves, and efficiency comparisons across all benchmarks. Chapter~\ref{chapter5} discusses the findings, interprets the observed trade-offs between model complexity, training data size, and predictive performance, and compares the results to state-of-the-art methods. Finally, Chapter~\ref{chapter6} concludes the thesis with a summary of key findings and suggestions for future research.

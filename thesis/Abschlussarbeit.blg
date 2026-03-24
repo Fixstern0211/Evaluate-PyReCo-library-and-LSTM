@@ -1,0 +1,54 @@
+This is BibTeX, Version 0.99d (TeX Live 2025/Homebrew)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: Abschlussarbeit.aux
+A level-1 auxiliary file: ./misc/titlepage.aux
+A level-1 auxiliary file: ./misc/self-assertion.aux
+A level-1 auxiliary file: ./misc/abstract.aux
+A level-1 auxiliary file: ./misc/abstract_de.aux
+The style file: unsrt.bst
+Database file #1: ./bib/manual.bib
+Warning--empty booktitle in lukosevicius2009reservoir
+Warning--can't use both volume and number fields in lukosevicius2009reservoir
+Warning--empty journal in cohen1988statistical
+You've used 36 entries,
+            1791 wiz_defined-function locations,
+            673 strings with 9921 characters,
+and the built_in function-call counts, 8797 in all, are:
+= -- 830
+> -- 348
+< -- 8
++ -- 131
+- -- 95
+* -- 616
+:= -- 1371
+add.period$ -- 112
+call.type$ -- 36
+change.case$ -- 34
+chr.to.int$ -- 0
+cite$ -- 39
+duplicate$ -- 382
+empty$ -- 856
+format.name$ -- 95
+if$ -- 1956
+int.to.chr$ -- 0
+int.to.str$ -- 36
+missing$ -- 38
+newline$ -- 183
+num.names$ -- 36
+pop$ -- 85
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 173
+stack$ -- 0
+substring$ -- 713
+swap$ -- 84
+text.length$ -- 8
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 3
+while$ -- 91
+width$ -- 38
+write$ -- 399
+(There were 3 warnings)

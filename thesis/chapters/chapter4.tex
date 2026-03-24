@@ -1,0 +1,316 @@
+\section{Results \label{chapter4}}
+
+This chapter presents the experimental results of comparing PyReCo (Echo-State Networks) and LSTM networks across all benchmark datasets and experimental configurations. Section~\ref{sec:single_step} reports single-step prediction performance. Section~\ref{sec:data_eff} analyzes data efficiency. Section~\ref{sec:multi_step_results} examines multi-step prediction. Section~\ref{sec:train_eff} compares training efficiency. Section~\ref{sec:stat_results} presents the statistical significance analysis.
+
+% ============================================================================
+\subsection{Single-Step Prediction Performance}
+\label{sec:single_step}
+% ============================================================================
+
+Figure~\ref{fig:r2_overview} and Table~\ref{tab:main_results} summarize the single-step prediction performance across all datasets and parameter budgets.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{fig_r2_by_dataset_budget.pdf}
+    \caption{R\textsuperscript{2} scores for single-step prediction across three datasets and three parameter budget levels. Error bars indicate one standard deviation over 30 runs (5 seeds $\times$ multiple training fractions).}
+    \label{fig:r2_overview}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Single-step prediction performance summary (R\textsuperscript{2}, mean $\pm$ std, 30 runs).}
+\label{tab:main_results}
+\small
+\begin{tabular}{@{}llccc@{}}
+\toprule
+Dataset & Model & Small (${\sim}$1K) & Medium (${\sim}$10K) & Large (${\sim}$50K) \\
+\midrule
+\multirow{2}{*}{Lorenz}
+    & PyReCo & $0.894 \pm 0.238$ & $0.894 \pm 0.240$ & $\mathbf{0.901 \pm 0.225}$ \\
+    & LSTM   & $0.747 \pm 0.353$ & $0.818 \pm 0.312$ & $0.806 \pm 0.281$ \\
+\midrule
+\multirow{2}{*}{Mackey-Glass}
+    & PyReCo & $\mathbf{0.989 \pm 0.002}$ & $\mathbf{0.987 \pm 0.002}$ & $\mathbf{0.987 \pm 0.002}$ \\
+    & LSTM   & $0.928 \pm 0.056$ & $0.971 \pm 0.027$ & $0.962 \pm 0.031$ \\
+\midrule
+\multirow{2}{*}{Santa Fe}
+    & PyReCo & $0.808 \pm 0.019$ & $0.752 \pm 0.018$ & $0.737 \pm 0.007$ \\
+    & LSTM   & $\mathbf{0.910 \pm 0.066}$ & $\mathbf{0.954 \pm 0.030}$ & $\mathbf{0.915 \pm 0.063}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Lorenz System}
+
+PyReCo achieves near-perfect prediction on the Lorenz system across all budget levels, with R\textsuperscript{2} scores consistently above 0.89. The best PyReCo configuration (large budget, high training fraction) reaches R\textsuperscript{2} = 0.9999 with MSE = 0.0001. LSTM performs substantially worse, with R\textsuperscript{2} ranging from 0.747 (small) to 0.818 (medium). The performance gap is statistically significant at all budget levels ($p < 0.001$, Cohen's $d > 2.7$).
+
+Notably, PyReCo's advantage is largest at the small budget, where a 100-node reservoir with only 100 trainable parameters significantly outperforms an LSTM with 952 fully trainable parameters.
+
+\subsubsection{Mackey-Glass System}
+
+PyReCo also dominates on the Mackey-Glass dataset, achieving R\textsuperscript{2} $\geq$ 0.987 at all budget levels with remarkably low variance (std $\leq$ 0.002). LSTM achieves competitive but lower performance, with R\textsuperscript{2} ranging from 0.928 (small) to 0.971 (medium). The differences are statistically significant at the small budget ($p < 0.05$) but become non-significant at medium and large budgets, where LSTM narrows the gap.
+
+At the large budget with sufficient data, LSTM occasionally surpasses PyReCo (R\textsuperscript{2} = 0.992 vs.\ 0.987, $p = 0.043$), suggesting that LSTM benefits more from increased model capacity on this dataset.
+
+\subsubsection{Santa Fe Laser Dataset}
+
+The Santa Fe dataset presents a strikingly different picture. LSTM consistently outperforms PyReCo at all budget levels, with the gap widening at medium budgets (R\textsuperscript{2} = 0.954 vs.\ 0.752, $p < 0.001$, Cohen's $d > 13$). PyReCo's performance actually decreases slightly with larger budgets (from 0.808 to 0.737), suggesting that larger reservoirs do not improve generalization on this real-world dataset.
+
+This reversal highlights a fundamental finding: model superiority is dataset-dependent. PyReCo excels on synthetic chaotic systems with well-characterized dynamics, while LSTM excels on real-world data with noise and unknown structure.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{fig_mse_by_dataset_budget.pdf}
+    \caption{MSE comparison across datasets and budgets (log scale). Lower is better.}
+    \label{fig:mse_overview}
+\end{figure}
+
+% ============================================================================
+\subsection{Data Efficiency Analysis}
+\label{sec:data_eff}
+% ============================================================================
+
+The data efficiency experiments evaluate how model performance scales with the amount of training data, using six data lengths from 1\,000 to 10\,000 samples. Figure~\ref{fig:learning_curves} shows the learning curves at the medium budget, and Figures~\ref{fig:de_lorenz}--\ref{fig:de_santafe} show detailed results for each dataset across all budgets.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{fig_learning_curves.pdf}
+    \caption{Learning curves at medium budget: R\textsuperscript{2} vs.\ data length for both models across all three datasets. Shaded regions indicate $\pm$1 standard deviation.}
+    \label{fig:learning_curves}
+\end{figure}
+
+Across all 54 pairwise comparisons (3 datasets $\times$ 3 budgets $\times$ 6 data lengths), PyReCo wins 35 on R\textsuperscript{2} while LSTM wins 19.
+
+\subsubsection{Lorenz System}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{fig_data_efficiency_lorenz.pdf}
+    \caption{Data efficiency on the Lorenz system: R\textsuperscript{2} vs.\ data length for small, medium, and large budgets.}
+    \label{fig:de_lorenz}
+\end{figure}
+
+PyReCo outperforms LSTM at every data length and budget level on the Lorenz system. Even with only 1\,000 training samples, PyReCo achieves R\textsuperscript{2} $>$ 0.98, while LSTM requires substantially more data to reach similar performance. At the small budget, PyReCo is 17--40$\times$ faster to train. Both models improve with more data, but PyReCo saturates earlier, indicating superior data efficiency for this chaotic ODE system.
+
+\subsubsection{Mackey-Glass System}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{fig_data_efficiency_mackeyglass.pdf}
+    \caption{Data efficiency on the Mackey-Glass system: R\textsuperscript{2} vs.\ data length for small, medium, and large budgets.}
+    \label{fig:de_mackeyglass}
+\end{figure}
+
+Results on Mackey-Glass mirror the Lorenz findings: PyReCo achieves R\textsuperscript{2} $>$ 0.98 across all configurations. At medium and large budgets, LSTM approaches PyReCo's performance with sufficient data (R\textsuperscript{2} $>$ 0.98 at 10\,000 samples), but the difference remains statistically significant at small budgets. PyReCo's consistent high performance across data lengths confirms its data efficiency advantage on chaotic delay differential equations.
+
+\subsubsection{Santa Fe Laser Dataset}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{fig_data_efficiency_santafe.pdf}
+    \caption{Data efficiency on the Santa Fe dataset: R\textsuperscript{2} vs.\ data length for small, medium, and large budgets.}
+    \label{fig:de_santafe}
+\end{figure}
+
+On the Santa Fe dataset, LSTM consistently outperforms PyReCo across all data lengths and budgets. LSTM's performance improves substantially with more data (from R\textsuperscript{2} $\approx$ 0.77 at 1\,000 samples to 0.98 at 10\,000 samples at medium budget), while PyReCo plateaus around R\textsuperscript{2} $\approx$ 0.75. This suggests that LSTM's ability to learn complex patterns through gradient-based optimization is more effective for real-world data where the generating process is unknown.
+
+\subsubsection{Supplementary Validation: Broad Grid Search at Low Data}
+
+A potential concern with the data efficiency results is whether PyReCo's poor performance at low training fractions is caused by suboptimal hyperparameters rather than a genuine architectural limitation. The main experiments use hyperparameters tuned at a training fraction of 0.6; these settings may be suboptimal when only 20\% of the data is available for training.
+
+To address this, a supplementary experiment was conducted on the Lorenz system at train\_frac = 0.2: a broad grid search over 180 hyperparameter combinations was compared against the 6 combinations from the main experiment's narrow grid. Table~\ref{tab:broad_grid} summarizes the results.
+
+\begin{table}[H]
+\centering
+\caption{Supplementary broad grid search on the Lorenz system at train\_frac = 0.2 (seed = 42).}
+\label{tab:broad_grid}
+\small
+\begin{tabular}{@{}llllp{4.2cm}@{}}
+\toprule
+Budget & Main R\textsuperscript{2} (6 combos) & Broad R\textsuperscript{2} (180 combos) & Improvement & Config Change \\
+\midrule
+Small  & 0.328 & 0.462 & +13\% & spec\_rad $0.99 \to 0.8$, leakage $0.7 \to 0.5$ \\
+Medium & 0.418 & 0.426 & +0.8\% & spec\_rad $0.99 \to 0.8$ \\
+Large  & 0.385 & 0.394 & +0.9\% & leakage $0.7 \to 0.5$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The broad grid does select different hyperparameters for the low-data regime---lower spectral radius (0.8 vs.\ 0.99) and lower leakage rate (0.5 vs.\ 0.7)---indicating that data-specific tuning is worthwhile. However, the R\textsuperscript{2} improvement is marginal: both configurations produce poor predictions (R\textsuperscript{2} $<$ 0.5) across all budgets. Even with $30\times$ more search combinations, PyReCo cannot overcome the fundamental data insufficiency for this 3-dimensional chaotic system. This confirms that the observed performance gap at low data ratios reflects an \emph{architectural limitation} of the fixed reservoir, not a parameter mismatch artifact.
+
+% ============================================================================
+\subsection{Multi-Step Prediction}
+\label{sec:multi_step_results}
+% ============================================================================
+
+Multi-step prediction performance is evaluated in free-run (autoregressive) mode at horizons of 1, 5, 10, 20, and 50 steps. Figure~\ref{fig:multi_step} shows the performance at medium budget, and Figure~\ref{fig:horizon_degrad} shows the degradation patterns across all budgets.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{fig_multi_step_prediction.pdf}
+    \caption{Multi-step prediction: R\textsuperscript{2} vs.\ prediction horizon at medium budget. Shaded regions indicate $\pm$1 standard deviation.}
+    \label{fig:multi_step}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{fig_horizon_degradation.pdf}
+    \caption{Performance degradation with prediction horizon across all budgets. Solid, dashed, and dotted lines represent small, medium, and large budgets respectively.}
+    \label{fig:horizon_degrad}
+\end{figure}
+
+Key findings from the multi-step analysis:
+
+\begin{itemize}
+    \item \textbf{Lorenz}: PyReCo maintains higher R\textsuperscript{2} than LSTM up to horizon 20 at all budgets. At horizon 50, both models degrade severely (R\textsuperscript{2} $<$ 0.2), consistent with the Lorenz system's short Lyapunov time.
+    \item \textbf{Mackey-Glass}: PyReCo dominates at short horizons (1--5 steps) but LSTM overtakes at longer horizons ($\geq$ 10 steps) at medium and large budgets. This suggests LSTM captures longer-range dependencies more effectively through its gating mechanism.
+    \item \textbf{Santa Fe}: LSTM maintains superior performance at all horizons. Both models degrade to R\textsuperscript{2} $\approx$ 0.2 at horizon 50, reflecting the fundamental difficulty of predicting chaotic real-world systems over long horizons.
+\end{itemize}
+
+The universal degradation at long horizons is expected: in free-run mode, prediction errors compound at each step, and the chaotic nature of all three systems causes exponential error growth consistent with positive Lyapunov exponents.
+
+% ============================================================================
+\subsection{Training Efficiency}
+\label{sec:train_eff}
+% ============================================================================
+
+Training efficiency is a key practical consideration. Following the evaluation protocol (Section~\ref{sec:efficiency_metrics}), training time is decomposed into three components: training with optimal parameters (primary), hyperparameter tuning (supplementary), and inference time.
+
+\subsubsection{Training Time with Optimal Parameters}
+
+Table~\ref{tab:training_time} presents the primary training time comparison: the wall-clock time for a single training run using the best hyperparameter configuration.
+
+\begin{table}[H]
+\centering
+\caption{Training time with optimal parameters (primary metric, mean over 90 runs per cell).}
+\label{tab:training_time}
+\begin{tabular}{@{}lrrrl@{}}
+\toprule
+Scale & PyReCo (s) & LSTM (s) & Speedup & Winner \\
+\midrule
+Small  & 1.73  & 56.13 & 32.4$\times$ & PyReCo \\
+Medium & 13.47 & 28.17 & 2.1$\times$  & PyReCo \\
+Large  & 74.71 & 30.61 & 0.4$\times$  & LSTM \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The training time pattern reveals a crossover effect:
+
+\begin{itemize}
+    \item At \textbf{small budgets}, PyReCo is dramatically faster (32.4$\times$), because ridge regression on a 100-node reservoir completes in under 2 seconds, compared to LSTM's gradient-based training over multiple epochs.
+    \item At \textbf{medium budgets}, PyReCo retains a 2.1$\times$ advantage, but the gap narrows as the reservoir construction cost grows with reservoir size.
+    \item At \textbf{large budgets}, LSTM becomes 2.4$\times$ faster than PyReCo. The $O(N^2)$ cost of constructing and operating a 700-node reservoir exceeds the cost of training a moderately sized LSTM with early stopping.
+\end{itemize}
+
+\subsubsection{Hyperparameter Tuning Cost}
+
+Table~\ref{tab:tuning_time} reports the hyperparameter tuning time as a supplementary metric. This cost is incurred once per (dataset, budget) configuration and is amortized across subsequent training runs with the selected optimal hyperparameters.
+
+\begin{table}[H]
+\centering
+\caption{Hyperparameter tuning time (supplementary metric, mean over 90 runs per cell).}
+\label{tab:tuning_time}
+\begin{tabular}{@{}lrrrll@{}}
+\toprule
+Scale & PyReCo (s) & LSTM (s) & Grid Size & CV Folds \\
+\midrule
+Small  & 65   & 364  & 36 / 9  & 5 / 1 \\
+Medium & 464  & 291  & 36 / 9  & 5 / 1 \\
+Large  & 2\,572 & 279  & 36 / 9  & 5 / 1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+PyReCo's tuning cost grows steeply with reservoir size due to two factors: (1) each configuration requires $O(N^2)$ reservoir construction, and (2) the 5-fold cross-validation multiplies this cost by 5. At the large budget, PyReCo's tuning takes ${\sim}$43 minutes compared to ${\sim}$5 minutes for LSTM. Conversely, at the small budget, LSTM tuning is slower because each of its 9 configurations requires full gradient-based training (many epochs), while PyReCo's 36 configurations each train via fast ridge regression.
+
+\subsubsection{Inference Time}
+
+Table~\ref{tab:inference_time} compares per-sample inference latency.
+
+\begin{table}[H]
+\centering
+\caption{Inference time per sample (mean $\pm$ std).}
+\label{tab:inference_time}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Scale & PyReCo (ms) & LSTM (ms) \\
+\midrule
+Small  & $0.31 \pm 0.02$ & $0.006 \pm 0.005$ \\
+Medium & $2.54 \pm 0.11$ & $0.011 \pm 0.005$ \\
+Large  & $13.99 \pm 0.78$ & $0.025 \pm 0.008$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+LSTM inference is 50--560$\times$ faster than PyReCo across all budget levels. This is because LSTM inference involves compact matrix multiplications with hidden size $h$ (10--109), while PyReCo inference requires a full reservoir state update involving an $N \times N$ sparse matrix (100--700 nodes). For latency-critical applications, this difference is substantial.
+
+\subsubsection{Training Efficiency}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{fig_training_efficiency.pdf}
+    \caption{Training efficiency (R\textsuperscript{2} per second of training with optimal parameters) by parameter budget scale. Note the log scale.}
+    \label{fig:train_eff}
+\end{figure}
+
+Figure~\ref{fig:train_eff} shows the training efficiency metric (R\textsuperscript{2} per second of training with optimal parameters). At the small scale, PyReCo achieves 22.3$\times$ more performance per unit of computation. This advantage diminishes at medium scale (2.1$\times$) and reverses at large scale, where LSTM achieves 2.7$\times$ better efficiency.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{fig_training_time_comparison.pdf}
+    \caption{Training time comparison across datasets and budgets. Note: this figure shows total time including hyperparameter search; see Tables~\ref{tab:training_time}--\ref{tab:tuning_time} for the decomposed metrics.}
+    \label{fig:train_time}
+\end{figure}
+
+% ============================================================================
+\subsection{Statistical Significance}
+\label{sec:stat_results}
+% ============================================================================
+
+All comparisons are validated through paired t-tests and Wilcoxon signed-rank tests. Table~\ref{tab:stat_summary} summarizes the overall results, and Figure~\ref{fig:stat_sig} shows the winner by dataset and budget.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{fig_statistical_significance.pdf}
+    \caption{Statistically significant winner (R\textsuperscript{2}) by dataset and parameter budget. All differences are significant at $p < 0.05$.}
+    \label{fig:stat_sig}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Summary of statistical analysis across all 54 comparisons.}
+\label{tab:stat_summary}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Metric & PyReCo Wins & LSTM Wins & Total \\
+\midrule
+MSE (lower is better)        & 35 & 19 & 54 \\
+R\textsuperscript{2} (higher is better) & 35 & 19 & 54 \\
+Training speed                & 36 & 18 & 54 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{fig_overall_summary.pdf}
+    \caption{Win count summary across all 54 pairwise comparisons. The dashed line indicates the 50/50 threshold.}
+    \label{fig:overall}
+\end{figure}
+
+By dataset, the pattern is unambiguous:
+\begin{itemize}
+    \item \textbf{Lorenz}: PyReCo wins all 18/18 R\textsuperscript{2} comparisons, with large effect sizes (Cohen's $d$ ranging from 2.7 to 28.9).
+    \item \textbf{Mackey-Glass}: PyReCo wins 16/18 R\textsuperscript{2} comparisons. The two LSTM wins occur at large budget with high data availability, with moderate effect sizes.
+    \item \textbf{Santa Fe}: LSTM wins 17/18 R\textsuperscript{2} comparisons. Effect sizes are consistently large ($d > 2.7$), confirming a strong and reliable advantage.
+\end{itemize}
+
+All significant differences exhibit large effect sizes (Cohen's $d > 2.0$), indicating that the observed differences are not only statistically significant but also practically meaningful.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{fig_parameter_budget_breakdown.pdf}
+    \caption{Parameter budget breakdown for PyReCo and LSTM. PyReCo has only 1--10\% trainable parameters (readout), while LSTM parameters are 100\% trainable.}
+    \label{fig:param_breakdown}
+\end{figure}

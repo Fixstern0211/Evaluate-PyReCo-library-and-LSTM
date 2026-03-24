@@ -1,0 +1,2013 @@
+================================================================================
+STATISTICAL ANALYSIS REPORT
+Generated: 2026-03-20 00:32:31
+================================================================================
+
+## Data Summary
+----------------------------------------
+  final: 540 records
+  multi_step: 540 records
+  data_efficiency: 540 records
+  Total: 1620 records
+  Datasets: ['lorenz', 'mackeyglass', 'santafe']
+  Scales: ['large', 'medium', 'small']
+  Comparisons performed: 54
+
+## Statistical Methods
+----------------------------------------
+  - Paired t-test with 95% Confidence Intervals
+  - Cohen's d_z (paired) effect size with 95% CI
+  - Shapiro-Wilk normality test on paired differences
+  - Wilcoxon signed-rank test (non-parametric, for reference only)
+  - Holm-Bonferroni multiple comparison correction
+
+## Methodological Notes
+----------------------------------------
+  - n=5 paired observations per comparison (seeds 42-46)
+  - Wilcoxon: min attainable p=0.0625 with n=5, cannot reach alpha=0.05
+  - Shapiro-Wilk: low power at n=5; non-rejection does not confirm normality
+  - Cohen's d_z = mean(diff)/SD(diff), appropriate for paired designs
+
+
+################################################################################
+EXPERIMENT: DATA EFFICIENCY
+################################################################################
+
+================================================================================
+DATASET: LORENZ
+================================================================================
+
+### SMALL Scale
+------------------------------------------------------------
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.003158 ± 0.000911
+    LSTM:   0.002326 ± 0.001031
+    Mean Diff: 0.000833 [95% CI: -0.000470, 0.002135]
+    t(4) = 1.775, p = 0.1506 ns
+    p (Holm-Bonferroni) = 0.8409 ns
+    Cohen's d_z = 0.794 [-0.211, 1.799] (medium)
+    Shapiro-Wilk: W=0.9289, p=0.5888 (normal) [low power]
+    Wilcoxon: W=3.0, p=0.3125 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.989220 ± 0.003108
+    LSTM:   0.992062 ± 0.003518
+    Mean Diff: -0.002842 [95% CI: -0.007288, 0.001604]
+    t(4) = -1.775, p = 0.1506 ns
+    p (Holm-Bonferroni) = 0.8409 ns
+    Cohen's d_z = -0.794 [-1.799, 0.211] (medium)
+    Shapiro-Wilk: W=0.9289, p=0.5888 (normal) [low power]
+    Wilcoxon: W=3.0, p=0.3125 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 0.31s ± 0.00s
+    LSTM:   12.61s ± 0.47s
+    Mean Diff: -12.30 [95% CI: -12.88, -11.72]
+    t(4) = -58.866, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0000 ***
+    Cohen's d_z = -26.325 [-42.665, -9.986] (large)
+    Shapiro-Wilk: W=0.8811, p=0.3142 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 40.5x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 1.815274 ± 0.178012
+    LSTM:   2.163987 ± 0.309250
+    Mean Diff: -0.348712 [95% CI: -0.943305, 0.245880]
+    t(4) = -1.628, p = 0.1788 ns
+    p (Holm-Bonferroni) = 0.8409 ns
+    Cohen's d_z = -0.728 [-1.714, 0.258] (medium)
+    Shapiro-Wilk: W=0.8901, p=0.3575 (normal) [low power]
+    Wilcoxon: W=3.0, p=0.3125 ns [underpowered, min p=0.0625]
+    -> Winner: PyReCo
+
+  [R²] (higher is better)
+    PyReCo: 0.613080 ± 0.037943
+    LSTM:   0.538753 ± 0.065916
+    Mean Diff: 0.074327 [95% CI: -0.052409, 0.201062]
+    t(4) = 1.628, p = 0.1788 ns
+    p (Holm-Bonferroni) = 0.8409 ns
+    Cohen's d_z = 0.728 [-0.258, 1.714] (medium)
+    Shapiro-Wilk: W=0.8901, p=0.3575 (normal) [low power]
+    Wilcoxon: W=3.0, p=0.3125 ns [underpowered, min p=0.0625]
+    -> Winner: PyReCo
+
+  [Training Time] (lower is better)
+    PyReCo: 0.67s ± 0.01s
+    LSTM:   28.19s ± 0.30s
+    Mean Diff: -27.52 [95% CI: -27.90, -27.14]
+    t(4) = -202.173, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0000 ***
+    Cohen's d_z = -90.415 [-146.460, -34.369] (large)
+    Shapiro-Wilk: W=0.7482, p=0.0286 (non-normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 41.8x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.006996 ± 0.001148
+    LSTM:   0.004007 ± 0.000468
+    Mean Diff: 0.002990 [95% CI: 0.001905, 0.004074]
+    t(4) = 7.656, p = 0.0016 **
+    p (Holm-Bonferroni) = 0.0313 *
+    Cohen's d_z = 3.424 [1.128, 5.720] (large)
+    Shapiro-Wilk: W=0.8261, p=0.1300 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.996726 ± 0.000537
+    LSTM:   0.998125 ± 0.000219
+    Mean Diff: -0.001399 [95% CI: -0.001906, -0.000892]
+    t(4) = -7.656, p = 0.0016 **
+    p (Holm-Bonferroni) = 0.0297 *
+    Cohen's d_z = -3.424 [-5.720, -1.128] (large)
+    Shapiro-Wilk: W=0.8261, p=0.1300 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 1.18s ± 0.03s
+    LSTM:   43.98s ± 0.17s
+    Mean Diff: -42.80 [95% CI: -42.99, -42.61]
+    t(4) = -627.674, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0000 ***
+    Cohen's d_z = -280.704 [-454.686, -106.723] (large)
+    Shapiro-Wilk: W=0.9067, p=0.4478 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 37.4x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000227 ± 0.000063
+    LSTM:   0.000019 ± 0.000007
+    Mean Diff: 0.000207 [95% CI: 0.000122, 0.000293]
+    t(4) = 6.743, p = 0.0025 **
+    p (Holm-Bonferroni) = 0.0403 *
+    Cohen's d_z = 3.015 [0.951, 5.080] (large)
+    Shapiro-Wilk: W=0.8165, p=0.1096 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999834 ± 0.000046
+    LSTM:   0.999986 ± 0.000005
+    Mean Diff: -0.000151 [95% CI: -0.000214, -0.000089]
+    t(4) = -6.743, p = 0.0025 **
+    p (Holm-Bonferroni) = 0.0403 *
+    Cohen's d_z = -3.015 [-5.080, -0.951] (large)
+    Shapiro-Wilk: W=0.8165, p=0.1096 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 2.03s ± 0.05s
+    LSTM:   60.78s ± 12.88s
+    Mean Diff: -58.75 [95% CI: -74.77, -42.74]
+    t(4) = -10.185, p = 0.0005 ***
+    p (Holm-Bonferroni) = 0.0188 *
+    Cohen's d_z = -4.555 [-7.511, -1.599] (large)
+    Shapiro-Wilk: W=0.9291, p=0.5899 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 30.0x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000166 ± 0.000036
+    LSTM:   0.000010 ± 0.000004
+    Mean Diff: 0.000156 [95% CI: 0.000107, 0.000205]
+    t(4) = 8.818, p = 0.0009 ***
+    p (Holm-Bonferroni) = 0.0192 *
+    Cohen's d_z = 3.943 [1.347, 6.540] (large)
+    Shapiro-Wilk: W=0.9843, p=0.9563 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999860 ± 0.000030
+    LSTM:   0.999991 ± 0.000003
+    Mean Diff: -0.000131 [95% CI: -0.000173, -0.000090]
+    t(4) = -8.818, p = 0.0009 ***
+    p (Holm-Bonferroni) = 0.0192 *
+    Cohen's d_z = -3.943 [-6.540, -1.347] (large)
+    Shapiro-Wilk: W=0.9843, p=0.9563 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 2.88s ± 0.08s
+    LSTM:   88.81s ± 22.26s
+    Mean Diff: -85.93 [95% CI: -113.52, -58.34]
+    t(4) = -8.648, p = 0.0010 ***
+    p (Holm-Bonferroni) = 0.0305 *
+    Cohen's d_z = -3.868 [-6.420, -1.315] (large)
+    Shapiro-Wilk: W=0.8006, p=0.0819 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 30.9x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000122 ± 0.000032
+    LSTM:   0.000015 ± 0.000008
+    Mean Diff: 0.000107 [95% CI: 0.000061, 0.000153]
+    t(4) = 6.520, p = 0.0029 **
+    p (Holm-Bonferroni) = 0.0429 *
+    Cohen's d_z = 2.916 [0.907, 4.924] (large)
+    Shapiro-Wilk: W=0.7485, p=0.0288 (non-normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999888 ± 0.000029
+    LSTM:   0.999986 ± 0.000008
+    Mean Diff: -0.000098 [95% CI: -0.000140, -0.000056]
+    t(4) = -6.520, p = 0.0029 **
+    p (Holm-Bonferroni) = 0.0429 *
+    Cohen's d_z = -2.916 [-4.924, -0.907] (large)
+    Shapiro-Wilk: W=0.7485, p=0.0288 (non-normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 4.06s ± 0.04s
+    LSTM:   84.30s ± 26.47s
+    Mean Diff: -80.24 [95% CI: -113.15, -47.34]
+    t(4) = -6.770, p = 0.0025 **
+    p (Holm-Bonferroni) = 0.0596 ns
+    Cohen's d_z = -3.028 [-5.099, -0.957] (large)
+    Shapiro-Wilk: W=0.8802, p=0.3104 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 20.8x faster
+
+### MEDIUM Scale
+------------------------------------------------------------
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.001980 ± 0.000131
+    LSTM:   0.001054 ± 0.001088
+    Mean Diff: 0.000926 [95% CI: -0.000527, 0.002379]
+    t(4) = 1.769, p = 0.1516 ns
+    p (Holm-Bonferroni) = 0.8409 ns
+    Cohen's d_z = 0.791 [-0.213, 1.795] (medium)
+    Shapiro-Wilk: W=0.7083, p=0.0117 (non-normal) [low power]
+    Wilcoxon: W=2.0, p=0.1875 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.993241 ± 0.000447
+    LSTM:   0.996402 ± 0.003715
+    Mean Diff: -0.003161 [95% CI: -0.008122, 0.001800]
+    t(4) = -1.769, p = 0.1516 ns
+    p (Holm-Bonferroni) = 0.8409 ns
+    Cohen's d_z = -0.791 [-1.795, 0.213] (medium)
+    Shapiro-Wilk: W=0.7083, p=0.0117 (non-normal) [low power]
+    Wilcoxon: W=2.0, p=0.1875 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 2.44s ± 0.02s
+    LSTM:   10.85s ± 2.52s
+    Mean Diff: -8.41 [95% CI: -11.52, -5.29]
+    t(4) = -7.498, p = 0.0017 **
+    p (Holm-Bonferroni) = 0.0489 *
+    Cohen's d_z = -3.353 [-5.609, -1.098] (large)
+    Shapiro-Wilk: W=0.6073, p=0.0008 (non-normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 4.4x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 1.742836 ± 0.112793
+    LSTM:   1.699820 ± 0.123089
+    Mean Diff: 0.043016 [95% CI: -0.179815, 0.265846]
+    t(4) = 0.536, p = 0.6204 ns
+    p (Holm-Bonferroni) = 1.0000 ns
+    Cohen's d_z = 0.240 [-0.649, 1.129] (small)
+    Shapiro-Wilk: W=0.7917, p=0.0693 (normal) [low power]
+    Wilcoxon: W=6.0, p=0.8125 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.628520 ± 0.024042
+    LSTM:   0.637689 ± 0.026236
+    Mean Diff: -0.009169 [95% CI: -0.056664, 0.038327]
+    t(4) = -0.536, p = 0.6204 ns
+    p (Holm-Bonferroni) = 1.0000 ns
+    Cohen's d_z = -0.240 [-1.129, 0.649] (small)
+    Shapiro-Wilk: W=0.7917, p=0.0693 (normal) [low power]
+    Wilcoxon: W=6.0, p=0.8125 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 5.46s ± 0.03s
+    LSTM:   27.63s ± 0.63s
+    Mean Diff: -22.18 [95% CI: -22.93, -21.43]
+    t(4) = -82.107, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0000 ***
+    Cohen's d_z = -36.720 [-59.495, -13.944] (large)
+    Shapiro-Wilk: W=0.8266, p=0.1311 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 5.1x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.002894 ± 0.000542
+    LSTM:   0.004286 ± 0.002168
+    Mean Diff: -0.001392 [95% CI: -0.003496, 0.000712]
+    t(4) = -1.837, p = 0.1401 ns
+    p (Holm-Bonferroni) = 0.8409 ns
+    Cohen's d_z = -0.821 [-1.835, 0.192] (large)
+    Shapiro-Wilk: W=0.7692, p=0.0444 (non-normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: PyReCo
+
+  [R²] (higher is better)
+    PyReCo: 0.998646 ± 0.000254
+    LSTM:   0.997995 ± 0.001015
+    Mean Diff: 0.000651 [95% CI: -0.000333, 0.001636]
+    t(4) = 1.837, p = 0.1401 ns
+    p (Holm-Bonferroni) = 0.8409 ns
+    Cohen's d_z = 0.821 [-0.192, 1.835] (large)
+    Shapiro-Wilk: W=0.7692, p=0.0444 (non-normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: PyReCo
+
+  [Training Time] (lower is better)
+    PyReCo: 8.38s ± 0.03s
+    LSTM:   40.01s ± 7.73s
+    Mean Diff: -31.63 [95% CI: -41.26, -22.01]
+    t(4) = -9.122, p = 0.0008 ***
+    p (Holm-Bonferroni) = 0.0272 *
+    Cohen's d_z = -4.080 [-6.756, -1.403] (large)
+    Shapiro-Wilk: W=0.5748, p=0.0003 (non-normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 4.8x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000085 ± 0.000021
+    LSTM:   0.000014 ± 0.000009
+    Mean Diff: 0.000071 [95% CI: 0.000044, 0.000099]
+    t(4) = 7.317, p = 0.0019 **
+    p (Holm-Bonferroni) = 0.0334 *
+    Cohen's d_z = 3.272 [1.063, 5.482] (large)
+    Shapiro-Wilk: W=0.9641, p=0.8363 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999938 ± 0.000015
+    LSTM:   0.999990 ± 0.000007
+    Mean Diff: -0.000052 [95% CI: -0.000072, -0.000032]
+    t(4) = -7.317, p = 0.0019 **
+    p (Holm-Bonferroni) = 0.0334 *
+    Cohen's d_z = -3.272 [-5.482, -1.063] (large)
+    Shapiro-Wilk: W=0.9641, p=0.8363 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 14.48s ± 0.10s
+    LSTM:   45.44s ± 15.58s
+    Mean Diff: -30.96 [95% CI: -50.29, -11.63]
+    t(4) = -4.447, p = 0.0113 *
+    p (Holm-Bonferroni) = 0.1346 ns
+    Cohen's d_z = -1.989 [-3.501, -0.476] (large)
+    Shapiro-Wilk: W=0.9551, p=0.7737 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 3.1x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000041 ± 0.000003
+    LSTM:   0.000015 ± 0.000009
+    Mean Diff: 0.000026 [95% CI: 0.000014, 0.000038]
+    t(4) = 6.029, p = 0.0038 **
+    p (Holm-Bonferroni) = 0.0534 ns
+    Cohen's d_z = 2.696 [0.809, 4.583] (large)
+    Shapiro-Wilk: W=0.8540, p=0.2074 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999966 ± 0.000002
+    LSTM:   0.999988 ± 0.000008
+    Mean Diff: -0.000022 [95% CI: -0.000032, -0.000012]
+    t(4) = -6.029, p = 0.0038 **
+    p (Holm-Bonferroni) = 0.0534 ns
+    Cohen's d_z = -2.696 [-4.583, -0.809] (large)
+    Shapiro-Wilk: W=0.8540, p=0.2074 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 20.13s ± 0.07s
+    LSTM:   55.72s ± 19.11s
+    Mean Diff: -35.59 [95% CI: -59.39, -11.79]
+    t(4) = -4.152, p = 0.0142 *
+    p (Holm-Bonferroni) = 0.1346 ns
+    Cohen's d_z = -1.857 [-3.303, -0.410] (large)
+    Shapiro-Wilk: W=0.8454, p=0.1804 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 2.8x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000031 ± 0.000003
+    LSTM:   0.000009 ± 0.000004
+    Mean Diff: 0.000022 [95% CI: 0.000019, 0.000025]
+    t(4) = 22.532, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0010 **
+    Cohen's d_z = 10.077 [3.770, 16.383] (large)
+    Shapiro-Wilk: W=0.9424, p=0.6830 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999972 ± 0.000003
+    LSTM:   0.999992 ± 0.000004
+    Mean Diff: -0.000020 [95% CI: -0.000023, -0.000018]
+    t(4) = -22.532, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0010 **
+    Cohen's d_z = -10.077 [-16.383, -3.770] (large)
+    Shapiro-Wilk: W=0.9424, p=0.6830 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 29.49s ± 0.28s
+    LSTM:   73.64s ± 16.87s
+    Mean Diff: -44.14 [95% CI: -65.42, -22.87]
+    t(4) = -5.762, p = 0.0045 **
+    p (Holm-Bonferroni) = 0.0900 ns
+    Cohen's d_z = -2.577 [-4.398, -0.755] (large)
+    Shapiro-Wilk: W=0.8118, p=0.1008 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 2.5x faster
+
+### LARGE Scale
+------------------------------------------------------------
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.001480 ± 0.000160
+    LSTM:   0.000274 ± 0.000454
+    Mean Diff: 0.001206 [95% CI: 0.000547, 0.001865]
+    t(4) = 5.083, p = 0.0071 **
+    p (Holm-Bonferroni) = 0.0657 ns
+    Cohen's d_z = 2.273 [0.614, 3.932] (large)
+    Shapiro-Wilk: W=0.8047, p=0.0885 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.994947 ± 0.000545
+    LSTM:   0.999063 ± 0.001551
+    Mean Diff: -0.004116 [95% CI: -0.006365, -0.001868]
+    t(4) = -5.083, p = 0.0071 **
+    p (Holm-Bonferroni) = 0.0707 ns
+    Cohen's d_z = -2.273 [-3.932, -0.614] (large)
+    Shapiro-Wilk: W=0.8047, p=0.0885 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 13.74s ± 0.05s
+    LSTM:   7.89s ± 2.85s
+    Mean Diff: 5.85 [95% CI: 2.33, 9.37]
+    t(4) = 4.613, p = 0.0099 **
+    p (Holm-Bonferroni) = 0.1346 ns
+    Cohen's d_z = 2.063 [0.513, 3.613] (large)
+    Shapiro-Wilk: W=0.8915, p=0.3645 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> LSTM is 1.7x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 1.708836 ± 0.177216
+    LSTM:   0.691488 ± 0.352878
+    Mean Diff: 1.017348 [95% CI: 0.607112, 1.427584]
+    t(4) = 6.885, p = 0.0023 **
+    p (Holm-Bonferroni) = 0.0396 *
+    Cohen's d_z = 3.079 [0.979, 5.179] (large)
+    Shapiro-Wilk: W=0.9438, p=0.6931 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.635767 ± 0.037773
+    LSTM:   0.852612 ± 0.075215
+    Mean Diff: -0.216844 [95% CI: -0.304285, -0.129404]
+    t(4) = -6.885, p = 0.0023 **
+    p (Holm-Bonferroni) = 0.0396 *
+    Cohen's d_z = -3.079 [-5.179, -0.979] (large)
+    Shapiro-Wilk: W=0.9438, p=0.6931 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 29.79s ± 0.07s
+    LSTM:   26.79s ± 3.51s
+    Mean Diff: 3.00 [95% CI: -1.41, 7.42]
+    t(4) = 1.887, p = 0.1322 ns
+    p (Holm-Bonferroni) = 0.1435 ns
+    Cohen's d_z = 0.844 [-0.177, 1.865] (large)
+    Shapiro-Wilk: W=0.5919, p=0.0005 (non-normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> LSTM is 1.1x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.003259 ± 0.000712
+    LSTM:   0.000204 ± 0.000057
+    Mean Diff: 0.003054 [95% CI: 0.002143, 0.003965]
+    t(4) = 9.309, p = 0.0007 ***
+    p (Holm-Bonferroni) = 0.0170 *
+    Cohen's d_z = 4.163 [1.438, 6.888] (large)
+    Shapiro-Wilk: W=0.9619, p=0.8211 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.998475 ± 0.000333
+    LSTM:   0.999904 ± 0.000027
+    Mean Diff: -0.001429 [95% CI: -0.001856, -0.001003]
+    t(4) = -9.309, p = 0.0007 ***
+    p (Holm-Bonferroni) = 0.0170 *
+    Cohen's d_z = -4.163 [-6.888, -1.438] (large)
+    Shapiro-Wilk: W=0.9619, p=0.8211 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 45.87s ± 0.15s
+    LSTM:   32.37s ± 6.52s
+    Mean Diff: 13.50 [95% CI: 5.32, 21.67]
+    t(4) = 4.582, p = 0.0102 *
+    p (Holm-Bonferroni) = 0.1346 ns
+    Cohen's d_z = 2.049 [0.506, 3.592] (large)
+    Shapiro-Wilk: W=0.8605, p=0.2299 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> LSTM is 1.4x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000075 ± 0.000006
+    LSTM:   0.000023 ± 0.000024
+    Mean Diff: 0.000051 [95% CI: 0.000020, 0.000083]
+    t(4) = 4.509, p = 0.0108 *
+    p (Holm-Bonferroni) = 0.0860 ns
+    Cohen's d_z = 2.016 [0.490, 3.543] (large)
+    Shapiro-Wilk: W=0.7725, p=0.0475 (non-normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999946 ± 0.000004
+    LSTM:   0.999983 ± 0.000018
+    Mean Diff: -0.000038 [95% CI: -0.000061, -0.000014]
+    t(4) = -4.509, p = 0.0108 *
+    p (Holm-Bonferroni) = 0.0860 ns
+    Cohen's d_z = -2.016 [-3.543, -0.490] (large)
+    Shapiro-Wilk: W=0.7725, p=0.0475 (non-normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 79.00s ± 0.19s
+    LSTM:   20.85s ± 9.14s
+    Mean Diff: 58.15 [95% CI: 46.69, 69.61]
+    t(4) = 14.091, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0065 **
+    Cohen's d_z = 6.302 [2.299, 10.304] (large)
+    Shapiro-Wilk: W=0.9209, p=0.5361 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> LSTM is 3.8x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000028 ± 0.000002
+    LSTM:   0.000007 ± 0.000003
+    Mean Diff: 0.000021 [95% CI: 0.000016, 0.000026]
+    t(4) = 12.297, p = 0.0003 ***
+    p (Holm-Bonferroni) = 0.0073 **
+    Cohen's d_z = 5.499 [1.980, 9.019] (large)
+    Shapiro-Wilk: W=0.9703, p=0.8771 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999976 ± 0.000002
+    LSTM:   0.999994 ± 0.000002
+    Mean Diff: -0.000018 [95% CI: -0.000022, -0.000014]
+    t(4) = -12.297, p = 0.0003 ***
+    p (Holm-Bonferroni) = 0.0073 **
+    Cohen's d_z = -5.499 [-9.019, -1.980] (large)
+    Shapiro-Wilk: W=0.9703, p=0.8771 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 114.53s ± 0.65s
+    LSTM:   37.56s ± 9.48s
+    Mean Diff: 76.97 [95% CI: 64.56, 89.38]
+    t(4) = 17.221, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0030 **
+    Cohen's d_z = 7.702 [2.848, 12.555] (large)
+    Shapiro-Wilk: W=0.9421, p=0.6810 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> LSTM is 3.0x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000025 ± 0.000001
+    LSTM:   0.000003 ± 0.000001
+    Mean Diff: 0.000022 [95% CI: 0.000020, 0.000024]
+    t(4) = 30.135, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0004 ***
+    Cohen's d_z = 13.477 [5.078, 21.875] (large)
+    Shapiro-Wilk: W=0.9101, p=0.4680 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999977 ± 0.000001
+    LSTM:   0.999997 ± 0.000001
+    Mean Diff: -0.000020 [95% CI: -0.000022, -0.000018]
+    t(4) = -30.135, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0003 ***
+    Cohen's d_z = -13.477 [-21.875, -5.078] (large)
+    Shapiro-Wilk: W=0.9101, p=0.4680 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 173.93s ± 3.55s
+    LSTM:   57.51s ± 13.67s
+    Mean Diff: 116.42 [95% CI: 98.08, 134.75]
+    t(4) = 17.629, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0028 **
+    Cohen's d_z = 7.884 [2.920, 12.848] (large)
+    Shapiro-Wilk: W=0.9718, p=0.8868 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> LSTM is 3.0x faster
+
+================================================================================
+DATASET: MACKEYGLASS
+================================================================================
+
+### SMALL Scale
+------------------------------------------------------------
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.002758 ± 0.000729
+    LSTM:   0.000636 ± 0.000993
+    Mean Diff: 0.002122 [95% CI: 0.000986, 0.003257]
+    t(4) = 5.187, p = 0.0066 **
+    p (Holm-Bonferroni) = 0.0657 ns
+    Cohen's d_z = 2.320 [0.636, 4.003] (large)
+    Shapiro-Wilk: W=0.9091, p=0.4623 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.996870 ± 0.000666
+    LSTM:   0.999348 ± 0.000939
+    Mean Diff: -0.002478 [95% CI: -0.003864, -0.001091]
+    t(4) = -4.962, p = 0.0077 **
+    p (Holm-Bonferroni) = 0.0707 ns
+    Cohen's d_z = -2.219 [-3.850, -0.588] (large)
+    Shapiro-Wilk: W=0.9655, p=0.8456 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 0.29s ± 0.01s
+    LSTM:   8.54s ± 4.10s
+    Mean Diff: -8.24 [95% CI: -13.33, -3.16]
+    t(4) = -4.499, p = 0.0108 *
+    p (Holm-Bonferroni) = 0.1346 ns
+    Cohen's d_z = -2.012 [-3.536, -0.488] (large)
+    Shapiro-Wilk: W=0.9140, p=0.4919 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 29.3x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.001138 ± 0.000452
+    LSTM:   0.000041 ± 0.000013
+    Mean Diff: 0.001097 [95% CI: 0.000545, 0.001650]
+    t(4) = 5.515, p = 0.0053 **
+    p (Holm-Bonferroni) = 0.0655 ns
+    Cohen's d_z = 2.467 [0.704, 4.229] (large)
+    Shapiro-Wilk: W=0.9831, p=0.9505 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.998828 ± 0.000473
+    LSTM:   0.999958 ± 0.000012
+    Mean Diff: -0.001130 [95% CI: -0.001710, -0.000551]
+    t(4) = -5.417, p = 0.0056 **
+    p (Holm-Bonferroni) = 0.0676 ns
+    Cohen's d_z = -2.422 [-4.161, -0.684] (large)
+    Shapiro-Wilk: W=0.9625, p=0.8255 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 0.64s ± 0.01s
+    LSTM:   21.46s ± 4.33s
+    Mean Diff: -20.82 [95% CI: -26.20, -15.45]
+    t(4) = -10.757, p = 0.0004 ***
+    p (Holm-Bonferroni) = 0.0165 *
+    Cohen's d_z = -4.811 [-7.918, -1.703] (large)
+    Shapiro-Wilk: W=0.9145, p=0.4949 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 33.7x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000892 ± 0.000253
+    LSTM:   0.000021 ± 0.000016
+    Mean Diff: 0.000872 [95% CI: 0.000554, 0.001189]
+    t(4) = 7.619, p = 0.0016 **
+    p (Holm-Bonferroni) = 0.0313 *
+    Cohen's d_z = 3.407 [1.121, 5.693] (large)
+    Shapiro-Wilk: W=0.8552, p=0.2115 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999114 ± 0.000211
+    LSTM:   0.999980 ± 0.000016
+    Mean Diff: -0.000865 [95% CI: -0.001132, -0.000598]
+    t(4) = -8.993, p = 0.0008 ***
+    p (Holm-Bonferroni) = 0.0186 *
+    Cohen's d_z = -4.022 [-6.664, -1.380] (large)
+    Shapiro-Wilk: W=0.8963, p=0.3900 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 1.01s ± 0.02s
+    LSTM:   39.80s ± 9.91s
+    Mean Diff: -38.79 [95% CI: -51.09, -26.49]
+    t(4) = -8.753, p = 0.0009 ***
+    p (Holm-Bonferroni) = 0.0300 *
+    Cohen's d_z = -3.915 [-6.494, -1.335] (large)
+    Shapiro-Wilk: W=0.6187, p=0.0011 (non-normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 39.3x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000585 ± 0.000104
+    LSTM:   0.000015 ± 0.000012
+    Mean Diff: 0.000570 [95% CI: 0.000439, 0.000701]
+    t(4) = 12.055, p = 0.0003 ***
+    p (Holm-Bonferroni) = 0.0076 **
+    Cohen's d_z = 5.391 [1.937, 8.846] (large)
+    Shapiro-Wilk: W=0.8807, p=0.3126 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999411 ± 0.000109
+    LSTM:   0.999985 ± 0.000012
+    Mean Diff: -0.000574 [95% CI: -0.000712, -0.000437]
+    t(4) = -11.620, p = 0.0003 ***
+    p (Holm-Bonferroni) = 0.0088 **
+    Cohen's d_z = -5.197 [-8.534, -1.859] (large)
+    Shapiro-Wilk: W=0.8418, p=0.1699 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 1.79s ± 0.04s
+    LSTM:   50.78s ± 23.53s
+    Mean Diff: -48.98 [95% CI: -78.19, -19.78]
+    t(4) = -4.656, p = 0.0096 **
+    p (Holm-Bonferroni) = 0.1346 ns
+    Cohen's d_z = -2.082 [-3.643, -0.522] (large)
+    Shapiro-Wilk: W=0.8375, p=0.1582 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 28.3x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000453 ± 0.000056
+    LSTM:   0.000016 ± 0.000010
+    Mean Diff: 0.000438 [95% CI: 0.000377, 0.000499]
+    t(4) = 19.911, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0015 **
+    Cohen's d_z = 8.904 [3.316, 14.492] (large)
+    Shapiro-Wilk: W=0.9731, p=0.8950 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999544 ± 0.000056
+    LSTM:   0.999984 ± 0.000010
+    Mean Diff: -0.000440 [95% CI: -0.000500, -0.000380]
+    t(4) = -20.230, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0014 **
+    Cohen's d_z = -9.047 [-14.723, -3.372] (large)
+    Shapiro-Wilk: W=0.9769, p=0.9173 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 2.54s ± 0.10s
+    LSTM:   62.53s ± 24.75s
+    Mean Diff: -59.98 [95% CI: -90.78, -29.18]
+    t(4) = -5.407, p = 0.0057 **
+    p (Holm-Bonferroni) = 0.1020 ns
+    Cohen's d_z = -2.418 [-4.154, -0.682] (large)
+    Shapiro-Wilk: W=0.8675, p=0.2564 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 24.6x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000396 ± 0.000061
+    LSTM:   0.000002 ± 0.000001
+    Mean Diff: 0.000395 [95% CI: 0.000319, 0.000470]
+    t(4) = 14.426, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0040 **
+    Cohen's d_z = 6.452 [2.358, 10.545] (large)
+    Shapiro-Wilk: W=0.9899, p=0.9795 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999602 ± 0.000061
+    LSTM:   0.999998 ± 0.000000
+    Mean Diff: -0.000397 [95% CI: -0.000473, -0.000321]
+    t(4) = -14.507, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0039 **
+    Cohen's d_z = -6.488 [-10.603, -2.372] (large)
+    Shapiro-Wilk: W=0.9883, p=0.9734 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 3.72s ± 0.08s
+    LSTM:   114.98s ± 8.37s
+    Mean Diff: -111.26 [95% CI: -121.74, -100.78]
+    t(4) = -29.467, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0004 ***
+    Cohen's d_z = -13.178 [-21.392, -4.963] (large)
+    Shapiro-Wilk: W=0.8360, p=0.1542 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 30.9x faster
+
+### MEDIUM Scale
+------------------------------------------------------------
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.002656 ± 0.000406
+    LSTM:   0.000562 ± 0.000970
+    Mean Diff: 0.002094 [95% CI: 0.001035, 0.003154]
+    t(4) = 5.488, p = 0.0054 **
+    p (Holm-Bonferroni) = 0.0655 ns
+    Cohen's d_z = 2.454 [0.699, 4.210] (large)
+    Shapiro-Wilk: W=0.8699, p=0.2662 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.996968 ± 0.000272
+    LSTM:   0.999437 ± 0.000922
+    Mean Diff: -0.002469 [95% CI: -0.003758, -0.001181]
+    t(4) = -5.321, p = 0.0060 **
+    p (Holm-Bonferroni) = 0.0676 ns
+    Cohen's d_z = -2.379 [-4.095, -0.664] (large)
+    Shapiro-Wilk: W=0.7254, p=0.0173 (non-normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 2.31s ± 0.04s
+    LSTM:   6.73s ± 2.47s
+    Mean Diff: -4.42 [95% CI: -7.54, -1.31]
+    t(4) = -3.944, p = 0.0169 *
+    p (Holm-Bonferroni) = 0.1346 ns
+    Cohen's d_z = -1.764 [-3.165, -0.363] (large)
+    Shapiro-Wilk: W=0.9558, p=0.7788 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 2.9x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.001095 ± 0.000242
+    LSTM:   0.000038 ± 0.000017
+    Mean Diff: 0.001057 [95% CI: 0.000776, 0.001338]
+    t(4) = 10.449, p = 0.0005 ***
+    p (Holm-Bonferroni) = 0.0119 *
+    Cohen's d_z = 4.673 [1.647, 7.699] (large)
+    Shapiro-Wilk: W=0.9324, p=0.6126 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.998872 ± 0.000254
+    LSTM:   0.999961 ± 0.000017
+    Mean Diff: -0.001089 [95% CI: -0.001384, -0.000793]
+    t(4) = -10.236, p = 0.0005 ***
+    p (Holm-Bonferroni) = 0.0125 *
+    Cohen's d_z = -4.578 [-7.547, -1.608] (large)
+    Shapiro-Wilk: W=0.8649, p=0.2463 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 5.13s ± 0.05s
+    LSTM:   14.49s ± 1.97s
+    Mean Diff: -9.35 [95% CI: -11.82, -6.88]
+    t(4) = -10.516, p = 0.0005 ***
+    p (Holm-Bonferroni) = 0.0176 *
+    Cohen's d_z = -4.703 [-7.747, -1.659] (large)
+    Shapiro-Wilk: W=0.9320, p=0.6102 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 2.8x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000893 ± 0.000084
+    LSTM:   0.000020 ± 0.000011
+    Mean Diff: 0.000873 [95% CI: 0.000776, 0.000970]
+    t(4) = 25.002, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0007 ***
+    Cohen's d_z = 11.181 [4.196, 18.167] (large)
+    Shapiro-Wilk: W=0.9437, p=0.6922 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999109 ± 0.000046
+    LSTM:   0.999980 ± 0.000011
+    Mean Diff: -0.000872 [95% CI: -0.000920, -0.000824]
+    t(4) = -50.775, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0000 ***
+    Cohen's d_z = -22.707 [-36.809, -8.606] (large)
+    Shapiro-Wilk: W=0.9085, p=0.4588 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 8.05s ± 0.15s
+    LSTM:   23.73s ± 5.68s
+    Mean Diff: -15.67 [95% CI: -22.68, -8.67]
+    t(4) = -6.212, p = 0.0034 **
+    p (Holm-Bonferroni) = 0.0786 ns
+    Cohen's d_z = -2.778 [-4.710, -0.846] (large)
+    Shapiro-Wilk: W=0.8910, p=0.3621 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 2.9x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000665 ± 0.000064
+    LSTM:   0.000010 ± 0.000004
+    Mean Diff: 0.000655 [95% CI: 0.000579, 0.000732]
+    t(4) = 23.781, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0008 ***
+    Cohen's d_z = 10.635 [3.986, 17.285] (large)
+    Shapiro-Wilk: W=0.9768, p=0.9168 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999330 ± 0.000068
+    LSTM:   0.999990 ± 0.000004
+    Mean Diff: -0.000660 [95% CI: -0.000740, -0.000580]
+    t(4) = -22.841, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0010 ***
+    Cohen's d_z = -10.215 [-16.606, -3.823] (large)
+    Shapiro-Wilk: W=0.9216, p=0.5401 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 14.16s ± 0.26s
+    LSTM:   35.18s ± 6.57s
+    Mean Diff: -21.03 [95% CI: -29.23, -12.83]
+    t(4) = -7.119, p = 0.0021 **
+    p (Holm-Bonferroni) = 0.0535 ns
+    Cohen's d_z = -3.184 [-5.343, -1.025] (large)
+    Shapiro-Wilk: W=0.9435, p=0.6910 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 2.5x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000555 ± 0.000032
+    LSTM:   0.000008 ± 0.000004
+    Mean Diff: 0.000548 [95% CI: 0.000506, 0.000589]
+    t(4) = 36.539, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0002 ***
+    Cohen's d_z = 16.341 [6.175, 26.507] (large)
+    Shapiro-Wilk: W=0.9014, p=0.4178 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999441 ± 0.000029
+    LSTM:   0.999992 ± 0.000004
+    Mean Diff: -0.000551 [95% CI: -0.000589, -0.000513]
+    t(4) = -40.500, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0001 ***
+    Cohen's d_z = -18.112 [-29.372, -6.852] (large)
+    Shapiro-Wilk: W=0.9234, p=0.5519 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 19.76s ± 0.35s
+    LSTM:   46.44s ± 10.81s
+    Mean Diff: -26.68 [95% CI: -40.16, -13.20]
+    t(4) = -5.496, p = 0.0053 **
+    p (Holm-Bonferroni) = 0.1015 ns
+    Cohen's d_z = -2.458 [-4.215, -0.700] (large)
+    Shapiro-Wilk: W=0.8709, p=0.2701 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 2.4x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000432 ± 0.000035
+    LSTM:   0.000002 ± 0.000001
+    Mean Diff: 0.000430 [95% CI: 0.000387, 0.000473]
+    t(4) = 27.670, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0005 ***
+    Cohen's d_z = 12.374 [4.655, 20.094] (large)
+    Shapiro-Wilk: W=0.9439, p=0.6939 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999566 ± 0.000029
+    LSTM:   0.999998 ± 0.000001
+    Mean Diff: -0.000432 [95% CI: -0.000467, -0.000397]
+    t(4) = -34.466, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0002 ***
+    Cohen's d_z = -15.414 [-25.007, -5.820] (large)
+    Shapiro-Wilk: W=0.8757, p=0.2903 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 29.07s ± 0.53s
+    LSTM:   80.00s ± 19.14s
+    Mean Diff: -50.93 [95% CI: -74.91, -26.96]
+    t(4) = -5.899, p = 0.0041 **
+    p (Holm-Bonferroni) = 0.0868 ns
+    Cohen's d_z = -2.638 [-4.493, -0.783] (large)
+    Shapiro-Wilk: W=0.9242, p=0.5574 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 2.8x faster
+
+### LARGE Scale
+------------------------------------------------------------
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.002497 ± 0.000556
+    LSTM:   0.001107 ± 0.001193
+    Mean Diff: 0.001390 [95% CI: -0.000035, 0.002815]
+    t(4) = 2.709, p = 0.0536 ns
+    p (Holm-Bonferroni) = 0.3753 ns
+    Cohen's d_z = 1.211 [0.057, 2.365] (large)
+    Shapiro-Wilk: W=0.8972, p=0.3948 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.997167 ± 0.000405
+    LSTM:   0.998797 ± 0.001148
+    Mean Diff: -0.001629 [95% CI: -0.003234, -0.000024]
+    t(4) = -2.818, p = 0.0479 *
+    p (Holm-Bonferroni) = 0.3355 ns
+    Cohen's d_z = -1.260 [-2.434, -0.086] (large)
+    Shapiro-Wilk: W=0.8971, p=0.3941 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 13.41s ± 0.04s
+    LSTM:   7.07s ± 4.06s
+    Mean Diff: 6.34 [95% CI: 1.28, 11.39]
+    t(4) = 3.477, p = 0.0254 *
+    p (Holm-Bonferroni) = 0.1346 ns
+    Cohen's d_z = 1.555 [0.252, 2.858] (large)
+    Shapiro-Wilk: W=0.8251, p=0.1279 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> LSTM is 1.9x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.001191 ± 0.000282
+    LSTM:   0.000044 ± 0.000007
+    Mean Diff: 0.001147 [95% CI: 0.000797, 0.001496]
+    t(4) = 9.112, p = 0.0008 ***
+    p (Holm-Bonferroni) = 0.0177 *
+    Cohen's d_z = 4.075 [1.402, 6.748] (large)
+    Shapiro-Wilk: W=0.8859, p=0.3368 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.998771 ± 0.000308
+    LSTM:   0.999954 ± 0.000008
+    Mean Diff: -0.001183 [95% CI: -0.001563, -0.000803]
+    t(4) = -8.646, p = 0.0010 ***
+    p (Holm-Bonferroni) = 0.0197 *
+    Cohen's d_z = -3.867 [-6.419, -1.315] (large)
+    Shapiro-Wilk: W=0.8607, p=0.2307 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 29.34s ± 0.04s
+    LSTM:   17.89s ± 2.36s
+    Mean Diff: 11.45 [95% CI: 8.51, 14.39]
+    t(4) = 10.825, p = 0.0004 ***
+    p (Holm-Bonferroni) = 0.0165 *
+    Cohen's d_z = 4.841 [1.715, 7.967] (large)
+    Shapiro-Wilk: W=0.9786, p=0.9270 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> LSTM is 1.6x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.001020 ± 0.000130
+    LSTM:   0.000038 ± 0.000015
+    Mean Diff: 0.000982 [95% CI: 0.000806, 0.001158]
+    t(4) = 15.486, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0035 **
+    Cohen's d_z = 6.926 [2.545, 11.307] (large)
+    Shapiro-Wilk: W=0.7877, p=0.0640 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.998980 ± 0.000125
+    LSTM:   0.999962 ± 0.000014
+    Mean Diff: -0.000983 [95% CI: -0.001155, -0.000811]
+    t(4) = -15.856, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0032 **
+    Cohen's d_z = -7.091 [-11.573, -2.610] (large)
+    Shapiro-Wilk: W=0.9073, p=0.4513 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 45.56s ± 0.42s
+    LSTM:   28.90s ± 9.76s
+    Mean Diff: 16.66 [95% CI: 4.27, 29.04]
+    t(4) = 3.734, p = 0.0202 *
+    p (Holm-Bonferroni) = 0.1346 ns
+    Cohen's d_z = 1.670 [0.314, 3.026] (large)
+    Shapiro-Wilk: W=0.9762, p=0.9131 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> LSTM is 1.6x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000755 ± 0.000066
+    LSTM:   0.000018 ± 0.000016
+    Mean Diff: 0.000737 [95% CI: 0.000636, 0.000837]
+    t(4) = 20.369, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0014 **
+    Cohen's d_z = 9.109 [3.396, 14.823] (large)
+    Shapiro-Wilk: W=0.9775, p=0.9207 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999240 ± 0.000072
+    LSTM:   0.999982 ± 0.000016
+    Mean Diff: -0.000742 [95% CI: -0.000850, -0.000635]
+    t(4) = -19.223, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0017 **
+    Cohen's d_z = -8.597 [-13.997, -3.197] (large)
+    Shapiro-Wilk: W=0.9904, p=0.9811 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 78.04s ± 0.42s
+    LSTM:   40.69s ± 12.03s
+    Mean Diff: 37.34 [95% CI: 22.27, 52.42]
+    t(4) = 6.876, p = 0.0023 **
+    p (Holm-Bonferroni) = 0.0586 ns
+    Cohen's d_z = 3.075 [0.977, 5.173] (large)
+    Shapiro-Wilk: W=0.7777, p=0.0527 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> LSTM is 1.9x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000657 ± 0.000025
+    LSTM:   0.000020 ± 0.000024
+    Mean Diff: 0.000636 [95% CI: 0.000589, 0.000683]
+    t(4) = 37.822, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0002 ***
+    Cohen's d_z = 16.914 [6.394, 27.434] (large)
+    Shapiro-Wilk: W=0.8839, p=0.3271 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999339 ± 0.000026
+    LSTM:   0.999980 ± 0.000024
+    Mean Diff: -0.000640 [95% CI: -0.000690, -0.000590]
+    t(4) = -35.829, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0002 ***
+    Cohen's d_z = -16.023 [-25.993, -6.054] (large)
+    Shapiro-Wilk: W=0.8294, p=0.1376 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 111.73s ± 1.30s
+    LSTM:   51.45s ± 18.30s
+    Mean Diff: 60.28 [95% CI: 39.00, 81.57]
+    t(4) = 7.863, p = 0.0014 **
+    p (Holm-Bonferroni) = 0.0424 *
+    Cohen's d_z = 3.516 [1.167, 5.866] (large)
+    Shapiro-Wilk: W=0.9438, p=0.6932 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> LSTM is 2.2x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.000557 ± 0.000027
+    LSTM:   0.000003 ± 0.000001
+    Mean Diff: 0.000554 [95% CI: 0.000521, 0.000587]
+    t(4) = 46.173, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0001 ***
+    Cohen's d_z = 20.649 [7.821, 33.478] (large)
+    Shapiro-Wilk: W=0.8949, p=0.3823 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.999440 ± 0.000020
+    LSTM:   0.999997 ± 0.000001
+    Mean Diff: -0.000557 [95% CI: -0.000582, -0.000532]
+    t(4) = -61.610, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0000 ***
+    Cohen's d_z = -27.553 [-44.653, -10.453] (large)
+    Shapiro-Wilk: W=0.8521, p=0.2013 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 160.94s ± 1.85s
+    LSTM:   83.05s ± 17.83s
+    Mean Diff: 77.89 [95% CI: 56.95, 98.84]
+    t(4) = 10.328, p = 0.0005 ***
+    p (Holm-Bonferroni) = 0.0184 *
+    Cohen's d_z = 4.619 [1.625, 7.612] (large)
+    Shapiro-Wilk: W=0.8781, p=0.3006 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> LSTM is 1.9x faster
+
+================================================================================
+DATASET: SANTAFE
+================================================================================
+
+### SMALL Scale
+------------------------------------------------------------
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.019491 ± 0.007621
+    LSTM:   0.026874 ± 0.054608
+    Mean Diff: -0.007383 [95% CI: -0.079558, 0.064792]
+    t(4) = -0.284, p = 0.7905 ns
+    p (Holm-Bonferroni) = 1.0000 ns
+    Cohen's d_z = -0.127 [-1.007, 0.753] (negligible)
+    Shapiro-Wilk: W=0.6469, p=0.0024 (non-normal) [low power]
+    Wilcoxon: W=5.0, p=0.6250 ns [underpowered, min p=0.0625]
+    -> Winner: PyReCo
+
+  [R²] (higher is better)
+    PyReCo: 0.982471 ± 0.006854
+    LSTM:   0.975831 ± 0.049111
+    Mean Diff: 0.006640 [95% CI: -0.058271, 0.071550]
+    t(4) = 0.284, p = 0.7905 ns
+    p (Holm-Bonferroni) = 1.0000 ns
+    Cohen's d_z = 0.127 [-0.753, 1.007] (negligible)
+    Shapiro-Wilk: W=0.6469, p=0.0024 (non-normal) [low power]
+    Wilcoxon: W=5.0, p=0.6250 ns [underpowered, min p=0.0625]
+    -> Winner: PyReCo
+
+  [Training Time] (lower is better)
+    PyReCo: 0.33s ± 0.02s
+    LSTM:   5.26s ± 2.07s
+    Mean Diff: -4.92 [95% CI: -7.51, -2.33]
+    t(4) = -5.276, p = 0.0062 **
+    p (Holm-Bonferroni) = 0.1044 ns
+    Cohen's d_z = -2.359 [-4.064, -0.654] (large)
+    Shapiro-Wilk: W=0.9780, p=0.9236 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 15.8x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.133918 ± 0.015592
+    LSTM:   0.019848 ± 0.008714
+    Mean Diff: 0.114070 [95% CI: 0.093360, 0.134779]
+    t(4) = 15.293, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0035 **
+    Cohen's d_z = 6.839 [2.511, 11.168] (large)
+    Shapiro-Wilk: W=0.8994, p=0.4068 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.925345 ± 0.008692
+    LSTM:   0.988935 ± 0.004858
+    Mean Diff: -0.063590 [95% CI: -0.075136, -0.052045]
+    t(4) = -15.293, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0035 **
+    Cohen's d_z = -6.839 [-11.168, -2.511] (large)
+    Shapiro-Wilk: W=0.8994, p=0.4068 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 0.78s ± 0.03s
+    LSTM:   17.07s ± 4.09s
+    Mean Diff: -16.29 [95% CI: -21.38, -11.21]
+    t(4) = -8.896, p = 0.0009 ***
+    p (Holm-Bonferroni) = 0.0291 *
+    Cohen's d_z = -3.978 [-6.595, -1.361] (large)
+    Shapiro-Wilk: W=0.9530, p=0.7588 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 22.0x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.039023 ± 0.007628
+    LSTM:   0.003154 ± 0.000695
+    Mean Diff: 0.035869 [95% CI: 0.026892, 0.044846]
+    t(4) = 11.094, p = 0.0004 ***
+    p (Holm-Bonferroni) = 0.0101 *
+    Cohen's d_z = 4.961 [1.764, 8.159] (large)
+    Shapiro-Wilk: W=0.9752, p=0.9073 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.963333 ± 0.007167
+    LSTM:   0.997037 ± 0.000653
+    Mean Diff: -0.033703 [95% CI: -0.042138, -0.025268]
+    t(4) = -11.094, p = 0.0004 ***
+    p (Holm-Bonferroni) = 0.0101 *
+    Cohen's d_z = -4.961 [-8.159, -1.764] (large)
+    Shapiro-Wilk: W=0.9752, p=0.9073 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 1.31s ± 0.04s
+    LSTM:   35.19s ± 3.75s
+    Mean Diff: -33.89 [95% CI: -38.54, -29.24]
+    t(4) = -20.228, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0017 **
+    Cohen's d_z = -9.046 [-14.721, -3.371] (large)
+    Shapiro-Wilk: W=0.8296, p=0.1383 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 27.0x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.043820 ± 0.009054
+    LSTM:   0.001978 ± 0.000619
+    Mean Diff: 0.041842 [95% CI: 0.030574, 0.053110]
+    t(4) = 10.310, p = 0.0005 ***
+    p (Holm-Bonferroni) = 0.0120 *
+    Cohen's d_z = 4.611 [1.622, 7.600] (large)
+    Shapiro-Wilk: W=0.9248, p=0.5614 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.963033 ± 0.007638
+    LSTM:   0.998331 ± 0.000523
+    Mean Diff: -0.035298 [95% CI: -0.044804, -0.025792]
+    t(4) = -10.310, p = 0.0005 ***
+    p (Holm-Bonferroni) = 0.0125 *
+    Cohen's d_z = -4.611 [-7.600, -1.622] (large)
+    Shapiro-Wilk: W=0.9248, p=0.5614 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 2.24s ± 0.02s
+    LSTM:   53.46s ± 10.00s
+    Mean Diff: -51.22 [95% CI: -63.62, -38.82]
+    t(4) = -11.467, p = 0.0003 ***
+    p (Holm-Bonferroni) = 0.0135 *
+    Cohen's d_z = -5.128 [-8.425, -1.831] (large)
+    Shapiro-Wilk: W=0.8936, p=0.3754 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 23.9x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.020956 ± 0.001846
+    LSTM:   0.001606 ± 0.000598
+    Mean Diff: 0.019351 [95% CI: 0.016930, 0.021772]
+    t(4) = 22.193, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0010 **
+    Cohen's d_z = 9.925 [3.711, 16.138] (large)
+    Shapiro-Wilk: W=0.8030, p=0.0857 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.977313 ± 0.001999
+    LSTM:   0.998262 ± 0.000648
+    Mean Diff: -0.020949 [95% CI: -0.023569, -0.018328]
+    t(4) = -22.193, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0010 **
+    Cohen's d_z = -9.925 [-16.138, -3.711] (large)
+    Shapiro-Wilk: W=0.8030, p=0.0857 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 3.05s ± 0.07s
+    LSTM:   71.88s ± 20.69s
+    Mean Diff: -68.83 [95% CI: -94.46, -43.20]
+    t(4) = -7.456, p = 0.0017 **
+    p (Holm-Bonferroni) = 0.0489 *
+    Cohen's d_z = -3.335 [-5.580, -1.090] (large)
+    Shapiro-Wilk: W=0.9598, p=0.8062 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 23.6x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.035000 ± 0.012295
+    LSTM:   0.002619 ± 0.001175
+    Mean Diff: 0.032381 [95% CI: 0.016282, 0.048479]
+    t(4) = 5.585, p = 0.0050 **
+    p (Holm-Bonferroni) = 0.0655 ns
+    Cohen's d_z = 2.498 [0.719, 4.276] (large)
+    Shapiro-Wilk: W=0.9642, p=0.8366 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.960116 ± 0.014011
+    LSTM:   0.997015 ± 0.001339
+    Mean Diff: -0.036899 [95% CI: -0.055244, -0.018554]
+    t(4) = -5.585, p = 0.0050 **
+    p (Holm-Bonferroni) = 0.0655 ns
+    Cohen's d_z = -2.498 [-4.276, -0.719] (large)
+    Shapiro-Wilk: W=0.9642, p=0.8366 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 4.58s ± 0.18s
+    LSTM:   70.24s ± 19.62s
+    Mean Diff: -65.66 [95% CI: -89.95, -41.37]
+    t(4) = -7.505, p = 0.0017 **
+    p (Holm-Bonferroni) = 0.0489 *
+    Cohen's d_z = -3.356 [-5.614, -1.099] (large)
+    Shapiro-Wilk: W=0.9315, p=0.6068 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 15.3x faster
+
+### MEDIUM Scale
+------------------------------------------------------------
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.019272 ± 0.003584
+    LSTM:   0.002890 ± 0.001799
+    Mean Diff: 0.016382 [95% CI: 0.012138, 0.020626]
+    t(4) = 10.717, p = 0.0004 ***
+    p (Holm-Bonferroni) = 0.0112 *
+    Cohen's d_z = 4.793 [1.696, 7.890] (large)
+    Shapiro-Wilk: W=0.9001, p=0.4103 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.982668 ± 0.003224
+    LSTM:   0.997400 ± 0.001618
+    Mean Diff: -0.014733 [95% CI: -0.018550, -0.010916]
+    t(4) = -10.717, p = 0.0004 ***
+    p (Holm-Bonferroni) = 0.0112 *
+    Cohen's d_z = -4.793 [-7.890, -1.696] (large)
+    Shapiro-Wilk: W=0.9001, p=0.4103 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 2.82s ± 0.02s
+    LSTM:   5.65s ± 2.08s
+    Mean Diff: -2.83 [95% CI: -5.42, -0.24]
+    t(4) = -3.037, p = 0.0385 *
+    p (Holm-Bonferroni) = 0.1435 ns
+    Cohen's d_z = -1.358 [-2.574, -0.143] (large)
+    Shapiro-Wilk: W=0.9175, p=0.5141 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 2.0x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.125134 ± 0.006879
+    LSTM:   0.013654 ± 0.003748
+    Mean Diff: 0.111480 [95% CI: 0.102946, 0.120013]
+    t(4) = 36.270, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0002 ***
+    Cohen's d_z = 16.220 [6.129, 26.312] (large)
+    Shapiro-Wilk: W=0.7073, p=0.0114 (non-normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.930242 ± 0.003835
+    LSTM:   0.992388 ± 0.002089
+    Mean Diff: -0.062147 [95% CI: -0.066904, -0.057389]
+    t(4) = -36.270, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0002 ***
+    Cohen's d_z = -16.220 [-26.312, -6.129] (large)
+    Shapiro-Wilk: W=0.7073, p=0.0114 (non-normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 6.32s ± 0.03s
+    LSTM:   17.51s ± 2.02s
+    Mean Diff: -11.19 [95% CI: -13.69, -8.68]
+    t(4) = -12.394, p = 0.0002 ***
+    p (Holm-Bonferroni) = 0.0102 *
+    Cohen's d_z = -5.543 [-9.088, -1.997] (large)
+    Shapiro-Wilk: W=0.9673, p=0.8579 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 2.8x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.043412 ± 0.004912
+    LSTM:   0.003826 ± 0.001645
+    Mean Diff: 0.039585 [95% CI: 0.033118, 0.046053]
+    t(4) = 16.994, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0027 **
+    Cohen's d_z = 7.600 [2.809, 12.391] (large)
+    Shapiro-Wilk: W=0.8002, p=0.0814 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.959210 ± 0.004616
+    LSTM:   0.996405 ± 0.001546
+    Mean Diff: -0.037195 [95% CI: -0.043272, -0.031118]
+    t(4) = -16.994, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0027 **
+    Cohen's d_z = -7.600 [-12.391, -2.809] (large)
+    Shapiro-Wilk: W=0.8002, p=0.0814 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 9.88s ± 0.06s
+    LSTM:   29.52s ± 10.68s
+    Mean Diff: -19.64 [95% CI: -32.94, -6.35]
+    t(4) = -4.103, p = 0.0148 *
+    p (Holm-Bonferroni) = 0.1346 ns
+    Cohen's d_z = -1.835 [-3.270, -0.399] (large)
+    Shapiro-Wilk: W=0.9885, p=0.9742 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 3.0x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.039273 ± 0.003223
+    LSTM:   0.002428 ± 0.000307
+    Mean Diff: 0.036845 [95% CI: 0.032571, 0.041118]
+    t(4) = 23.939, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0008 ***
+    Cohen's d_z = 10.706 [4.013, 17.399] (large)
+    Shapiro-Wilk: W=0.9046, p=0.4360 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.966869 ± 0.002719
+    LSTM:   0.997952 ± 0.000259
+    Mean Diff: -0.031083 [95% CI: -0.034687, -0.027478]
+    t(4) = -23.939, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0008 ***
+    Cohen's d_z = -10.706 [-17.399, -4.013] (large)
+    Shapiro-Wilk: W=0.9046, p=0.4360 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 16.65s ± 0.11s
+    LSTM:   44.27s ± 10.19s
+    Mean Diff: -27.62 [95% CI: -40.33, -14.91]
+    t(4) = -6.034, p = 0.0038 **
+    p (Holm-Bonferroni) = 0.0837 ns
+    Cohen's d_z = -2.698 [-4.587, -0.810] (large)
+    Shapiro-Wilk: W=0.8610, p=0.2317 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 2.7x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.020590 ± 0.002189
+    LSTM:   0.001624 ± 0.000513
+    Mean Diff: 0.018965 [95% CI: 0.015708, 0.022223]
+    t(4) = 16.164, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0031 **
+    Cohen's d_z = 7.229 [2.663, 11.794] (large)
+    Shapiro-Wilk: W=0.9336, p=0.6211 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.977710 ± 0.002370
+    LSTM:   0.998241 ± 0.000555
+    Mean Diff: -0.020531 [95% CI: -0.024058, -0.017005]
+    t(4) = -16.164, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0031 **
+    Cohen's d_z = -7.229 [-11.794, -2.663] (large)
+    Shapiro-Wilk: W=0.9336, p=0.6211 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 23.12s ± 0.29s
+    LSTM:   54.92s ± 26.03s
+    Mean Diff: -31.80 [95% CI: -64.17, 0.57]
+    t(4) = -2.728, p = 0.0526 ns
+    p (Holm-Bonferroni) = 0.1435 ns
+    Cohen's d_z = -1.220 [-2.377, -0.062] (large)
+    Shapiro-Wilk: W=0.8069, p=0.0921 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 2.4x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.037792 ± 0.004826
+    LSTM:   0.002337 ± 0.000579
+    Mean Diff: 0.035456 [95% CI: 0.029175, 0.041736]
+    t(4) = 15.675, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0034 **
+    Cohen's d_z = 7.010 [2.578, 11.442] (large)
+    Shapiro-Wilk: W=0.9090, p=0.4619 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.956934 ± 0.005500
+    LSTM:   0.997337 ± 0.000660
+    Mean Diff: -0.040404 [95% CI: -0.047560, -0.033247]
+    t(4) = -15.675, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0033 **
+    Cohen's d_z = -7.010 [-11.442, -2.578] (large)
+    Shapiro-Wilk: W=0.9090, p=0.4619 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 33.58s ± 0.24s
+    LSTM:   60.19s ± 19.20s
+    Mean Diff: -26.61 [95% CI: -50.36, -2.85]
+    t(4) = -3.110, p = 0.0359 *
+    p (Holm-Bonferroni) = 0.1435 ns
+    Cohen's d_z = -1.391 [-2.620, -0.161] (large)
+    Shapiro-Wilk: W=0.9148, p=0.4969 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> PyReCo is 1.8x faster
+
+### LARGE Scale
+------------------------------------------------------------
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.052784 ± 0.005175
+    LSTM:   0.003027 ± 0.001371
+    Mean Diff: 0.049757 [95% CI: 0.042330, 0.057184]
+    t(4) = 18.601, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0019 **
+    Cohen's d_z = 8.319 [3.089, 13.549] (large)
+    Shapiro-Wilk: W=0.9192, p=0.5245 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.952529 ± 0.004654
+    LSTM:   0.997278 ± 0.001233
+    Mean Diff: -0.044749 [95% CI: -0.051428, -0.038070]
+    t(4) = -18.601, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0019 **
+    Cohen's d_z = -8.319 [-13.549, -3.089] (large)
+    Shapiro-Wilk: W=0.9192, p=0.5245 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 16.52s ± 0.18s
+    LSTM:   4.67s ± 0.74s
+    Mean Diff: 11.84 [95% CI: 11.11, 12.57]
+    t(4) = 45.255, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0001 ***
+    Cohen's d_z = 20.239 [7.664, 32.813] (large)
+    Shapiro-Wilk: W=0.8821, p=0.3191 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> LSTM is 3.5x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.209224 ± 0.014717
+    LSTM:   0.014329 ± 0.000703
+    Mean Diff: 0.194895 [95% CI: 0.176911, 0.212880]
+    t(4) = 30.088, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0004 ***
+    Cohen's d_z = 13.456 [5.070, 21.841] (large)
+    Shapiro-Wilk: W=0.9356, p=0.6352 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.883364 ± 0.008204
+    LSTM:   0.992012 ± 0.000392
+    Mean Diff: -0.108648 [95% CI: -0.118674, -0.098623]
+    t(4) = -30.088, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0003 ***
+    Cohen's d_z = -13.456 [-21.841, -5.070] (large)
+    Shapiro-Wilk: W=0.9356, p=0.6352 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 35.74s ± 0.51s
+    LSTM:   14.90s ± 1.70s
+    Mean Diff: 20.84 [95% CI: 18.75, 22.93]
+    t(4) = 27.699, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0005 ***
+    Cohen's d_z = 12.387 [4.660, 20.115] (large)
+    Shapiro-Wilk: W=0.8365, p=0.1554 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> LSTM is 2.4x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.079193 ± 0.007002
+    LSTM:   0.003571 ± 0.001681
+    Mean Diff: 0.075623 [95% CI: 0.065926, 0.085319]
+    t(4) = 21.654, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0011 **
+    Cohen's d_z = 9.684 [3.618, 15.749] (large)
+    Shapiro-Wilk: W=0.8835, p=0.3255 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.925589 ± 0.006579
+    LSTM:   0.996645 ± 0.001580
+    Mean Diff: -0.071056 [95% CI: -0.080167, -0.061945]
+    t(4) = -21.654, p = 0.0000 ***
+    p (Holm-Bonferroni) = 0.0011 **
+    Cohen's d_z = -9.684 [-15.749, -3.618] (large)
+    Shapiro-Wilk: W=0.8835, p=0.3255 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 54.12s ± 0.52s
+    LSTM:   26.52s ± 12.83s
+    Mean Diff: 27.60 [95% CI: 11.92, 43.28]
+    t(4) = 4.888, p = 0.0081 **
+    p (Holm-Bonferroni) = 0.1217 ns
+    Cohen's d_z = 2.186 [0.572, 3.800] (large)
+    Shapiro-Wilk: W=0.9565, p=0.7835 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> LSTM is 2.0x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.082781 ± 0.011169
+    LSTM:   0.002979 ± 0.001464
+    Mean Diff: 0.079802 [95% CI: 0.066750, 0.092854]
+    t(4) = 16.976, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0027 **
+    Cohen's d_z = 7.592 [2.805, 12.378] (large)
+    Shapiro-Wilk: W=0.8954, p=0.3849 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.930165 ± 0.009422
+    LSTM:   0.997487 ± 0.001235
+    Mean Diff: -0.067322 [95% CI: -0.078333, -0.056311]
+    t(4) = -16.976, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0027 **
+    Cohen's d_z = -7.592 [-12.378, -2.805] (large)
+    Shapiro-Wilk: W=0.8954, p=0.3849 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 91.67s ± 0.33s
+    LSTM:   40.59s ± 21.49s
+    Mean Diff: 51.08 [95% CI: 24.25, 77.90]
+    t(4) = 5.287, p = 0.0061 **
+    p (Holm-Bonferroni) = 0.1044 ns
+    Cohen's d_z = 2.364 [0.657, 4.072] (large)
+    Shapiro-Wilk: W=0.7917, p=0.0692 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> LSTM is 2.3x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.047963 ± 0.006662
+    LSTM:   0.002342 ± 0.000430
+    Mean Diff: 0.045620 [95% CI: 0.037142, 0.054099]
+    t(4) = 14.939, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0037 **
+    Cohen's d_z = 6.681 [2.448, 10.914] (large)
+    Shapiro-Wilk: W=0.9533, p=0.7609 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.948077 ± 0.007212
+    LSTM:   0.997464 ± 0.000465
+    Mean Diff: -0.049388 [95% CI: -0.058566, -0.040209]
+    t(4) = -14.939, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0037 **
+    Cohen's d_z = -6.681 [-10.914, -2.448] (large)
+    Shapiro-Wilk: W=0.9533, p=0.7609 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 130.50s ± 0.50s
+    LSTM:   38.80s ± 14.59s
+    Mean Diff: 91.70 [95% CI: 73.60, 109.80]
+    t(4) = 14.065, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0065 **
+    Cohen's d_z = 6.290 [2.294, 10.286] (large)
+    Shapiro-Wilk: W=0.8995, p=0.4071 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> LSTM is 3.4x faster
+
+► Train Fraction: 0.7 (n=5 pairs)
+
+  [MSE] (lower is better)
+    PyReCo: 0.064927 ± 0.009069
+    LSTM:   0.002165 ± 0.000620
+    Mean Diff: 0.062763 [95% CI: 0.051038, 0.074487]
+    t(4) = 14.863, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0037 **
+    Cohen's d_z = 6.647 [2.435, 10.859] (large)
+    Shapiro-Wilk: W=0.9878, p=0.9714 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [R²] (higher is better)
+    PyReCo: 0.926012 ± 0.010335
+    LSTM:   0.997533 ± 0.000706
+    Mean Diff: -0.071522 [95% CI: -0.084882, -0.058161]
+    t(4) = -14.863, p = 0.0001 ***
+    p (Holm-Bonferroni) = 0.0037 **
+    Cohen's d_z = -6.647 [-10.859, -2.435] (large)
+    Shapiro-Wilk: W=0.9878, p=0.9714 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> Winner: LSTM
+
+  [Training Time] (lower is better)
+    PyReCo: 191.36s ± 1.70s
+    LSTM:   66.49s ± 28.75s
+    Mean Diff: 124.87 [95% CI: 88.90, 160.84]
+    t(4) = 9.639, p = 0.0006 ***
+    p (Holm-Bonferroni) = 0.0227 *
+    Cohen's d_z = 4.310 [1.499, 7.122] (large)
+    Shapiro-Wilk: W=0.8704, p=0.2678 (normal) [low power]
+    Wilcoxon: W=0.0, p=0.0625 ns [underpowered, min p=0.0625]
+    -> LSTM is 2.9x faster
+
+################################################################################
+EXPERIMENT: SINGLE-STEP PREDICTION
+################################################################################
+
+================================================================================
+DATASET: LORENZ
+================================================================================
+
+================================================================================
+DATASET: MACKEYGLASS
+================================================================================
+
+================================================================================
+DATASET: SANTAFE
+================================================================================
+
+################################################################################
+EXPERIMENT: MULTI-STEP PREDICTION
+################################################################################
+
+================================================================================
+DATASET: LORENZ
+================================================================================
+
+================================================================================
+DATASET: MACKEYGLASS
+================================================================================
+
+================================================================================
+DATASET: SANTAFE
+================================================================================
+
+================================================================================
+SUMMARY
+================================================================================
+
+Total comparisons: 54
+MSE wins:   PyReCo 3/54, LSTM 51/54
+R² wins:    PyReCo 3/54, LSTM 51/54
+Time wins:  PyReCo 36/54, LSTM 18/54
+
+Winners by Dataset:
+  lorenz: LSTM (R² wins: 2/18)
+  mackeyglass: LSTM (R² wins: 0/18)
+  santafe: LSTM (R² wins: 1/18)
+
+================================================================================
+Legend: *** p<0.001, ** p<0.01, * p<0.05, ns = not significant
+================================================================================
