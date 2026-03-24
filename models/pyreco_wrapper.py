@@ -62,7 +62,7 @@ class PyReCoStandardModel(BaseTimeSeriesModel):
             activation: Activation function ('tanh', 'relu', etc.)
             spec_rad: Spectral radius (controls reservoir dynamics)
             leakage_rate: Leakage rate (0=no memory, 1=full memory)
-            fraction_input: Fraction of nodes receiving input (0-1)
+            fraction_input: Fraction of nodes EXCLUDED from input (0-1, PyReCo convention)
             fraction_output: Fraction of nodes connected to output (0-1)
             optimizer: Optimizer for readout training ('ridge', 'pinv', etc.)
             verbose: Whether to print training information
@@ -350,7 +350,8 @@ def tune_pyreco_with_cv(
 
     If `budget` is set, num_nodes is dynamically computed for each
     (density, fraction_input) combination to satisfy the total parameter
-    budget constraint: N^2*density + N*d_in*fraction_input + N*d_out = budget.
+    budget constraint: N^2*density + N*d_in*(1-fraction_input) + N*d_out = budget.
+    Note: PyReCo's fraction_input = fraction of nodes EXCLUDED from input.
 
     Args:
         raw_data: Raw time series, shape (n_timesteps, n_features).

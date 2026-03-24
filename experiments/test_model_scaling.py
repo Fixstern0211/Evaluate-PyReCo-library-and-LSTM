@@ -125,7 +125,7 @@ def calculate_model_params(model_type, config):
     Calculate parameter counts from the ACTUAL model configuration.
 
     Uses budget_matching module for correct formulas:
-    - ESN: N²×δ + N×d_in×f_in + N×d_out
+    - ESN: N²×δ + N×d_in×(1-f_in) + N×d_out  (f_in = fraction EXCLUDED from input)
     - LSTM: 4h(h+d_in+2) + (L-1)×4h(2h+2) + h×d_out + d_out
             (matches PyTorch nn.LSTM with both bias_ih and bias_hh)
     """

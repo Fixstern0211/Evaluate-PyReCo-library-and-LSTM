@@ -11,7 +11,7 @@
 
 The original code computes `num_nodes` from the budget using default hyperparameters (δ=0.1, f_in=0.5), then allows δ and f_in to be tuned freely. After tuning, the actual total parameters deviate significantly from the budget target.
 
-**Formula**: `N_total = N² × δ + N × d_in × f_in + N × d_out`
+**Formula**: `N_total = N² × δ + N × d_in × (1 - f_in) + N × d_out`
 
 **Example** (Large budget=50K, Lorenz d=3):
 
@@ -33,7 +33,7 @@ All existing single-step experiments (results/final/) have this bug. LSTM wins 5
 `N`, `δ`, and `f_in` are coupled through the budget equation:
 
 ```
-N²×δ + N×d_in×f_in + N×d_out = budget
+N²×δ + N×d_in×(1-f_in) + N×d_out = budget
 ```
 
 The original code broke this by:
@@ -49,7 +49,7 @@ For each candidate (δ, f_in) in the tuning grid, solve the quadratic equation f
 
 ```
 N = [-b + √(b² + 4·δ·budget)] / (2·δ)
-where b = d_in × f_in + d_out
+where b = d_in × (1 - f_in) + d_out
 ```
 
 This ensures `N_total ≈ budget` for every configuration evaluated during tuning. N becomes a **dependent variable**, not a fixed constant.
@@ -145,7 +145,7 @@ These trends are expected to hold in the new design (they depend on chaotic syst
 The parameter budget is the total number of non-zero scalar weights that a model is allowed to use. Both ESN and LSTM are constrained to the same budget:
 
 ```
-ESN:  N²×δ + N×d_in×f_in + N×d_out = budget
+ESN:  N²×δ + N×d_in×(1-f_in) + N×d_out = budget
       |--- fixed random ---|  |- trained -|
 
 LSTM: 4h(h+d_in+2) + h×d_out + d_out = budget
