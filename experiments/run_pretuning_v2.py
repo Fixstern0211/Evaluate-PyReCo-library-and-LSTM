@@ -209,7 +209,8 @@ def evaluate_config(config, X_train, y_train, X_val, y_val, d_out,
 # ============================================================================
 
 def run_pretuning(dataset: str, budget_name: str, n_folds: int = CV_FOLDS,
-                  output_dir: str = 'results/pretuning_v2', verbose: bool = True):
+                  output_dir: str = 'results/pretuning_v2', verbose: bool = True,
+                  quick: bool = False):
     """
     Run budget-constrained pretuning for a single (dataset, budget).
     """
@@ -245,10 +246,21 @@ def run_pretuning(dataset: str, budget_name: str, n_folds: int = CV_FOLDS,
 
     # Generate budget-constrained structural grid
     density_values = DENSITY_VALUES[budget_name]
+    frac_in_values = FRAC_IN_VALUES
+    spec_rad_values = SPEC_RAD_VALUES
+    leakage_values = LEAKAGE_VALUES
+
+    if quick:
+        # Reduced grid for smoke testing (~30 combos instead of 600)
+        density_values = [0.01, 0.1]
+        frac_in_values = [0.1, 0.5]
+        spec_rad_values = [0.8, 0.99]
+        leakage_values = [0.5, 1.0]
+
     structural_grid = esn_budget_grid(
         budget=budget,
         density_values=density_values,
-        frac_in_values=FRAC_IN_VALUES,
+        frac_in_values=frac_in_values,
         d_in=d_in, d_out=d_out,
         max_nodes=MAX_NODES,
     )
@@ -264,7 +276,7 @@ def run_pretuning(dataset: str, budget_name: str, n_folds: int = CV_FOLDS,
               f"N={sg['num_nodes']:>5d} trainable={pi['trainable']:>5d} "
               f"total={pi['total']:>6d}")
 
-    dynamics_combos = list(product(SPEC_RAD_VALUES, LEAKAGE_VALUES))
+    dynamics_combos = list(product(spec_rad_values, leakage_values))
     total_combos = len(structural_grid) * len(dynamics_combos)
     print(f"Dynamics combos (sr x leak): {len(dynamics_combos)}")
     print(f"Total combos: {total_combos}")
@@ -406,10 +418,12 @@ def main():
         datasets = ['lorenz']
         budgets = ['small']
         n_folds = 3
+        quick_mode = True
     else:
         datasets = [args.dataset] if args.dataset else DATASETS
         budgets = [args.budget] if args.budget else list(BUDGETS.keys())
         n_folds = args.folds
+        quick_mode = False
 
     total_groups = len(datasets) * len(budgets)
     print(f"Pretuning v2: {len(datasets)} datasets x {len(budgets)} budgets "
@@ -422,7 +436,7 @@ def main():
             group_num = i * len(budgets) + j + 1
             print(f"\n[{group_num}/{total_groups}]")
             result = run_pretuning(dataset, budget_name, n_folds=n_folds,
-                                   output_dir=args.output_dir)
+                                   output_dir=args.output_dir, quick=quick_mode)
             if result:
                 all_results[(dataset, budget_name)] = result
 

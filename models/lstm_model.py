@@ -216,6 +216,10 @@ class LSTMModel(BaseTimeSeriesModel):
                 dropout=self.dropout
             ).to(self.device)
 
+            # Store input/output sizes in config for save/load
+            self.config['input_size'] = n_features
+            self.config['output_size'] = n_features
+
             # Initialize optimizer
             self.optimizer = torch.optim.Adam(
                 self.network.parameters(),
