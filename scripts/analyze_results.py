@@ -1,7 +1,19 @@
 """
 Comprehensive analysis of PyReCo vs LSTM experiments.
 Analyzes 45 experiments across 3 datasets, 5 seeds, 3 training ratios.
+
+DEPRECATED: This script reads from 'results_final/' which no longer exists.
+Use 'analysis/generate_main_experiment_tables.py' and
+'scripts/generate_thesis_figures.py' instead.
 """
+
+import warnings
+warnings.warn(
+    "analyze_results.py is DEPRECATED. It reads from 'results_final/' which no longer exists. "
+    "Use 'analysis/generate_main_experiment_tables.py' and 'scripts/generate_thesis_figures.py' instead.",
+    DeprecationWarning,
+    stacklevel=2,
+)
 
 import json
 import numpy as np

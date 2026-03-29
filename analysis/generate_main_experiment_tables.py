@@ -2,7 +2,7 @@
 """
 Generate comprehensive results tables from main experiments.
 Main experiments compare PyReCo vs LSTM across different parameter budgets.
-Data sources: results/final/ and results/backup_20251201_lstm_no_tuning/
+Data source: results/final_v2/ (V2 budget-matched PyReCo + reused V1 LSTM)
 """
 
 import json
@@ -14,7 +14,7 @@ import csv
 # Project paths
 PROJECT_ROOT = Path(__file__).parent.parent
 RESULTS_DIRS = [
-    PROJECT_ROOT / "results" / "final_with_lstm",  # Main experiments with both PyReCo and LSTM
+    PROJECT_ROOT / "results" / "final_v2",  # V2 budget-matched PyReCo + reused V1 LSTM
 ]
 OUTPUT_DIR = PROJECT_ROOT / "results" / "tables" / "main_experiments"
 
