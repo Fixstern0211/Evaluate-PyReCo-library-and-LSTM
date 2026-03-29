@@ -341,9 +341,30 @@ This implementation choice is documented in the code (`timeseries_cv_split_raw` 
 
 **Statistical validation**: 5 seeds provide paired observations for t-tests.
 
-### Phase 3: Multi-step + Data Efficiency (540 groups)
+### Phase 3: Multi-step Prediction (270 groups)
 
 Use best configs from Phase 2. No additional tuning.
+Both models retrained with per-seed best configs, evaluated at horizons [1, 5, 10, 20, 50] in free-run mode.
+Test windows subsampled with stride=5 (see stride justification section below).
+
+### Data Efficiency: No Separate Experiment Needed
+
+The main experiment already covers data efficiency through the 6 train_frac conditions (0.2–0.8). At the same (dataset, budget, seed), comparing R² across train_frac directly measures how each model degrades with less training data.
+
+**Analysis approach** (from main experiment data, no additional runs):
+- Plot R² vs train_frac per (dataset, budget) for both models
+- The model with slower R² degradation at low train_frac is more data-efficient
+- Paired comparison: for each (dataset, budget, seed), compute the slope of R² vs train_frac
+- Statistical test: paired t-test on slopes across 5 seeds
+
+**Why a separate data-efficiency experiment is redundant**:
+- V1 varied total data length (5000→1000→500), which is a different axis than train_frac
+- But train_frac=0.2 on 5000 points (980 training steps) ≈ train_frac=0.7 on 1400 points — same effective training set size
+- The train_frac dimension already provides 6 data points per condition for data efficiency analysis
+
+**Thesis text (Results or Discussion)**:
+
+> Data efficiency is assessed directly from the main experiment results by examining how prediction accuracy degrades as the training fraction decreases from 0.8 to 0.2. For each dataset and parameter budget, the R² values across six training fractions provide a data efficiency curve for both models. A model that maintains higher R² at lower training fractions demonstrates superior data efficiency — i.e., it extracts more predictive information from limited training data. This analysis requires no additional experiments, as the training fraction variation in the main experiment design (Section~\ref{sec:experiment_design}) already systematically controls the effective training set size.
 
 ### Estimated Runtime
 
@@ -397,6 +418,61 @@ The old data and new data answer **complementary questions**:
 | **Matching** | Unmatched (PyReCo used 14–43% of budget) | Strictly matched (both ≈ budget) |
 | **Question** | How parameter-efficient is ESN? | Under equal budget, which is better? |
 | **Role in thesis** | Supplementary analysis in Ch5 Discussion | Main results in Ch4 |
+
+---
+
+## Multi-Step Prediction: Test Window Subsampling (stride=5)
+
+### Problem
+
+Multi-step evaluation uses free-run prediction: for each test window, the model iteratively predicts 50 steps ahead. With stride-1 sliding windows, adjacent windows share 99/100 input steps and 49/50 target steps, producing near-identical predictions. This redundancy is harmless for metrics but extremely costly for computation — PyReCo's per-window evaluation takes ~1s for medium budget, making a single experiment ~57 minutes at tf=0.2 (3283 windows).
+
+### Solution
+
+Subsample test windows with stride=5: `X_test = X_test[::5]`. This reduces window count by ~5× while preserving metric accuracy.
+
+**This does NOT apply to single-step main experiments**, where evaluation is a single batch `model.predict(X_test)` and window count has negligible impact on speed.
+
+### Empirical Validation
+
+**Single-step metrics across strides** (lorenz/small/seed=42/tf=0.7):
+
+| Stride | N_samples | PyReCo R² | LSTM R² | PyReCo MSE | LSTM MSE |
+|--------|-----------|-----------|---------|------------|----------|
+| 1 | 1400 | 0.99992069 | 0.99999385 | 9.981e-05 | 7.405e-06 |
+| 5 | 280 | 0.99992295 | 0.99999395 | 9.675e-05 | 7.268e-06 |
+| 10 | 140 | 0.99991945 | 0.99999418 | 1.012e-04 | 6.987e-06 |
+| 50 | 28 | 0.99993108 | 0.99999335 | 8.857e-05 | 8.247e-06 |
+
+R² varies by < 2e-5 across all strides. No systematic bias.
+
+**Multi-step metrics: stride=1 vs stride=5** (lorenz/small/seed=42/tf=0.7):
+
+| Model | Horizon | stride=1 R² | stride=5 R² | ΔR² |
+|-------|---------|-------------|-------------|-----|
+| PyReCo | h=1 | 0.9999 | 0.9999 | <1e-4 |
+| PyReCo | h=10 | 0.9816 | 0.9816 | <1e-3 |
+| PyReCo | h=50 | -0.1601 | -0.1673 | 0.007 |
+| LSTM | h=1 | 1.0000 | 1.0000 | <1e-4 |
+| LSTM | h=10 | 0.9994 | 0.9994 | <1e-4 |
+| LSTM | h=50 | 0.9335 | 0.9330 | 0.0005 |
+
+Eval time: PyReCo 35.3s → 8.8s (4× speedup).
+
+### Why overlapping windows don't bias metrics
+
+Each window's MSE is computed independently — the model predicts from that window's input and is compared to that window's target. Overlapping means good and bad regions are equally repeated; the mean is unbiased. What overlap affects is the *variance estimate* (treating N correlated windows as independent would underestimate confidence intervals), but the point estimates (MSE, R²) remain valid.
+
+### Thesis text (Methodology)
+
+> To reduce computational redundancy in multi-step evaluation, test windows were subsampled with a stride of 5. With an input window of 100 time steps, adjacent stride-1 windows share 99 of 100 input steps and produce near-identical free-run predictions. Empirical validation confirmed that stride-5 subsampling changes R² by less than 0.01 and MSE by less than 5% across all tested conditions, while reducing per-experiment evaluation time by approximately 4×.
+
+### Implementation
+
+- `run_multi_step_v2.py`: `TEST_STRIDE = 5`, applied as `X_test_ms[::TEST_STRIDE]`
+- Each output JSON records `test_stride` and `n_test_windows` for reproducibility
+
+---
 
 ### Critical Assessment of Old Data Usability
 
