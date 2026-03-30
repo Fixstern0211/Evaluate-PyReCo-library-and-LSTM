@@ -27,7 +27,7 @@ from itertools import product
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.utils.load_dataset import load as local_load, set_seed
+from src.utils.load_dataset import load as local_load, set_seed, load_data, _sliding_window
 from src.utils.budget_matching import (
     esn_solve_num_nodes, esn_total_params,
     lstm_solve_hidden_size, lstm_total_params, lstm_layer_hidden_map,
@@ -137,6 +137,35 @@ ESN_PARAM_GRID = {
 
 
 # ============================================================================
+def _make_trainval_windows(dataset, seed, train_frac, scaler, n_in=100, n_out=1):
+    """Create sliding windows on the continuous train+val sequence.
+
+    Avoids the gap of ``n_in + n_out - 1`` boundary windows that
+    ``np.concatenate([X_train, X_val])`` misses.
+    """
+    set_seed(seed)
+    if dataset in PYRECO_DATASETS:
+        # pyreco_load with val_fraction=None returns trainval as one block
+        result = pyreco_load(
+            dataset, 5000, seed=seed, train_fraction=train_frac,
+            n_in=n_in, n_out=n_out, standardize=False,
+        )
+        X_raw, Y_raw = result[0], result[1]
+    else:
+        # Santa Fe: use local utility (same raw data)
+        data, _ = load_data(dataset, length=5000, seed=seed)
+        n_trainval = int(len(data) * train_frac)
+        trainval_data = data[:n_trainval]
+        X_raw, Y_raw = _sliding_window(trainval_data, n_in, n_out)
+
+    # Apply the scaler (fit on train-only) to the 3D windowed data
+    N, win, D = X_raw.shape
+    X_tv = scaler.transform(X_raw.reshape(-1, D)).reshape(N, win, D)
+    _, out, D2 = Y_raw.shape
+    Y_tv = scaler.transform(Y_raw.reshape(-1, D2)).reshape(Y_raw.shape)
+    return X_tv, Y_tv
+
+
 # Single experiment
 # ============================================================================
 
@@ -240,8 +269,8 @@ def run_single_experiment(dataset: str, budget_name: str, train_frac: float,
 
     # Train final ESN on train+val with best config
     if best_esn_result:
-        X_full = np.concatenate([X_train, X_val], axis=0)
-        y_full = np.concatenate([y_train, y_val], axis=0)
+        X_full, y_full = _make_trainval_windows(
+            dataset, seed, train_frac, scaler)
 
         green = GreenMetricsTracker()
         green.start()
@@ -340,8 +369,8 @@ def run_single_experiment(dataset: str, budget_name: str, train_frac: float,
         gc.collect()
 
         # Train final LSTM on train+val
-        X_full = np.concatenate([X_train, X_val], axis=0)
-        y_full = np.concatenate([y_train, y_val], axis=0)
+        X_full, y_full = _make_trainval_windows(
+            dataset, seed, train_frac, scaler)
 
         green = GreenMetricsTracker()
         green.start()
@@ -416,6 +445,24 @@ def run_single_experiment(dataset: str, budget_name: str, train_frac: float,
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
 
+    # Collect environment info for reproducibility
+    import platform
+    env_info = {
+        'lstm_device': lstm_device,
+        'machine': platform.machine(),
+        'platform': platform.platform(),
+    }
+    try:
+        import torch
+        env_info['torch_version'] = torch.__version__
+        env_info['torch_backend'] = (
+            'mps' if torch.backends.mps.is_available()
+            else 'cuda' if torch.cuda.is_available()
+            else 'cpu'
+        )
+    except Exception:
+        pass
+
     output = {
         'metadata': {
             'dataset': dataset,
@@ -426,6 +473,7 @@ def run_single_experiment(dataset: str, budget_name: str, train_frac: float,
             'd_in': d_in,
             'd_out': d_out,
             'timestamp': datetime.now().isoformat(),
+            'environment': env_info,
         },
         'results': {budget_name: results},
     }
@@ -446,7 +494,12 @@ def run_single_experiment(dataset: str, budget_name: str, train_frac: float,
 
 def scan_completed_experiments(output_dir: str) -> set:
     """Scan output directory for already-completed experiments.
-    Returns set of (dataset, budget_name, train_frac, seed) tuples."""
+    Returns set of (dataset, budget_name, train_frac, seed) tuples.
+
+    Only marks an experiment as completed if the result file contains
+    both 'pyreco_standard' and 'lstm' entries, ensuring partial runs
+    (e.g. from --skip-lstm or mid-run crashes) are re-run.
+    """
     completed = set()
     output_path = Path(output_dir)
     if not output_path.exists():
@@ -455,8 +508,14 @@ def scan_completed_experiments(output_dir: str) -> set:
     for f in output_path.glob('results_*.json'):
         try:
             with open(f) as fp:
-                meta = json.load(fp)['metadata']
-            key = (meta['dataset'], meta['budget_name'],
+                data = json.load(fp)
+            meta = data['metadata']
+            budget_name = meta['budget_name']
+            result_list = data['results'].get(budget_name, [])
+            model_types = {r['model_type'] for r in result_list}
+            if not {'pyreco_standard', 'lstm'}.issubset(model_types):
+                continue
+            key = (meta['dataset'], budget_name,
                    meta['train_frac'], meta['seed'])
             completed.add(key)
         except (json.JSONDecodeError, KeyError):

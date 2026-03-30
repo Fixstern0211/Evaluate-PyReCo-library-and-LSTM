@@ -30,13 +30,35 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.utils.load_dataset import load as local_load, set_seed
+from src.utils.load_dataset import load as local_load, set_seed, load_data, _sliding_window
 from models.pyreco_wrapper import PyReCoStandardModel
 from models.lstm_model import LSTMModel
 from src.utils.evaluation import evaluate_multi_step
 from pyreco.datasets import load as pyreco_load
 
 PYRECO_DATASETS = {'lorenz', 'mackeyglass'}
+
+
+def _make_trainval_windows(dataset, seed, train_frac, scaler,
+                           n_in=100, n_out=1, length=5000):
+    """Create sliding windows on the continuous train+val sequence."""
+    set_seed(seed)
+    if dataset.lower() in PYRECO_DATASETS:
+        result = pyreco_load(
+            dataset, length, seed=seed, train_fraction=train_frac,
+            n_in=n_in, n_out=n_out, standardize=False,
+        )
+        X_raw, Y_raw = result[0], result[1]
+    else:
+        data, _ = load_data(dataset, length=length, seed=seed)
+        n_trainval = int(len(data) * train_frac)
+        X_raw, Y_raw = _sliding_window(data[:n_trainval], n_in, n_out)
+
+    N, win, D = X_raw.shape
+    X_tv = scaler.transform(X_raw.reshape(-1, D)).reshape(N, win, D)
+    _, out, D2 = Y_raw.shape
+    Y_tv = scaler.transform(Y_raw.reshape(-1, D2)).reshape(Y_raw.shape)
+    return X_tv, Y_tv
 DEFAULT_HORIZONS = [1, 5, 10, 20, 50]
 TEST_STRIDE = 5  # Subsample test windows to reduce redundant computation
 DATASETS = ['lorenz', 'mackeyglass', 'santafe']
@@ -109,8 +131,8 @@ def run_single_experiment(dataset, train_frac, budget, seed,
         n_in=n_in, n_out=max_horizon, standardize=True,
     )
 
-    X_full = np.concatenate([X_train, X_val], axis=0)
-    y_full = np.concatenate([y_train, y_val], axis=0)
+    X_full, y_full = _make_trainval_windows(
+        dataset, seed, train_frac, scaler, n_in=n_in, n_out=1, length=length)
 
     # Subsample test windows: stride-1 sliding windows are highly redundant
     # (adjacent windows share 99/100 input steps and 49/50 target steps).

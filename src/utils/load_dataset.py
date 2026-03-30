@@ -235,3 +235,48 @@ def load(
 
     return X_train, Y_train, X_val, Y_val, X_test, Y_test, scaler
 
+
+def load_trainval_windows(
+    name: str,
+    n_samples: int = 5000,
+    *,
+    seed: int = None,
+    train_fraction: float = 0.7,
+    val_fraction: float = 0.15,
+    n_in: int = 100,
+    n_out: int = 1,
+    standardize: bool = True,
+    **kwargs
+):
+    """Create sliding windows on the joint train+val sequence.
+
+    Unlike concatenating pre-windowed X_train and X_val, this correctly
+    includes the ``n_in + n_out - 1`` windows that span the train/val
+    boundary.
+
+    Uses the same raw data, split points, and scaler as :func:`load` so
+    results are directly comparable.
+
+    Returns:
+        X_trainval: (N_tv, n_in, D) input windows over train+val
+        Y_trainval: (N_tv, n_out, D) target windows over train+val
+        scaler: fitted StandardScaler (or None)
+    """
+    data, meta = load_data(name, length=n_samples, seed=seed, **kwargs)
+    n_total = len(data)
+
+    n_trainval = int(n_total * train_fraction)
+    n_val = int(n_trainval * val_fraction)
+    n_train = n_trainval - n_val
+
+    trainval_data = data[:n_trainval]
+
+    scaler = None
+    if standardize:
+        train_data = data[:n_train]
+        scaler = StandardScaler().fit(train_data)
+        trainval_data = scaler.transform(trainval_data)
+
+    X_trainval, Y_trainval = _sliding_window(trainval_data, n_in, n_out)
+    return X_trainval, Y_trainval, scaler
+

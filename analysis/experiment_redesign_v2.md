@@ -474,6 +474,45 @@ Each window's MSE is computed independently — the model predicts from that win
 
 ---
 
+---
+
+## Training Time Scaling: RC Is NOT Always Faster
+
+### Finding
+
+The common claim that "Reservoir Computing trains extremely fast" holds only at small scale. Under matched parameter budgets, training time scales very differently:
+
+| Budget | PyReCo | LSTM | Faster |
+|--------|--------|------|--------|
+| Small (~1K params) | 4–10s | 37–45s | **PyReCo 4–10× faster** |
+| Medium (~10K params) | 162–176s | 19–29s | **LSTM 6–9× faster** |
+| Large (~50K params) | 188–442s | 19–31s | **LSTM 6–24× faster** |
+
+### Root Cause
+
+- **PyReCo**: Training is ridge regression on the reservoir state matrix. Complexity is O(N²·T) where N is reservoir size, T is training samples. When N grows from 140 (small) to 944 (large), training time increases ~100×.
+- **LSTM**: Training uses mini-batch SGD (batch_size=32). Complexity per epoch is O(T·h²/B) where h is hidden size and B is batch size. Time is dominated by epoch count and early stopping, largely independent of model size in our budget range.
+
+### Detailed Data (mean across seeds and train_fracs)
+
+| Dataset | Budget | PyReCo (s) | LSTM (s) | Winner |
+|---------|--------|-----------|----------|--------|
+| Lorenz | Small | 4.3 | 42.7 | PyReCo 10.0× |
+| Lorenz | Medium | 176.3 | 19.3 | LSTM 9.2× |
+| Lorenz | Large | 442.4 | 18.5 | LSTM 23.9× |
+| Mackey-Glass | Small | 9.7 | 44.8 | PyReCo 4.6× |
+| Mackey-Glass | Medium | 171.5 | 25.9 | LSTM 6.6× |
+| Mackey-Glass | Large | 236.0 | 26.9 | LSTM 8.8× |
+| Santa Fe | Small | 9.7 | 36.5 | PyReCo 3.8× |
+| Santa Fe | Medium | 162.6 | 28.6 | LSTM 5.7× |
+| Santa Fe | Large | 187.8 | 30.8 | LSTM 6.1× |
+
+### Thesis text (Results / Discussion)
+
+> A common motivation for reservoir computing is its fast training due to the closed-form ridge regression solution. Our results confirm this advantage at the small parameter budget (~1,000 parameters), where PyReCo trains 4–10× faster than LSTM across all datasets. However, this advantage reverses at medium and large budgets: at ~50,000 parameters, LSTM trains 6–24× faster than PyReCo. The root cause is the O(N²) complexity of ridge regression on the N-dimensional reservoir state matrix. As the reservoir size N increases from ~140 (small) to ~944 (large) to satisfy the parameter budget constraint, training time grows quadratically. In contrast, LSTM's mini-batch SGD training time is largely independent of model size within our budget range, as it is dominated by the number of training epochs rather than per-step computation. This finding qualifies the training speed advantage commonly attributed to reservoir computing: it holds for small reservoirs but does not scale to larger model sizes under matched parameter budgets.
+
+---
+
 ### Critical Assessment of Old Data Usability
 
 **Supports use:**
@@ -497,3 +536,53 @@ Each window's MSE is computed independently — the model predicts from that win
 ### Suggested text for Ch5 Discussion (revised — cautious framing)
 
 > An incidental observation from preliminary experiments suggests that ESN may achieve competitive accuracy with substantially fewer total parameters than LSTM. In configurations where the ESN used only 14--43\% of the parameter budget (due to reservoir density optimization without reservoir size adjustment), prediction accuracy on the Lorenz and Mackey-Glass systems remained comparable to the fully-budgeted LSTM (R\textsuperscript{2} $>$ 0.99 at medium budget). However, this observation is subject to several caveats: (1) the parameter asymmetry was not a controlled experimental variable; (2) the ESN's state dimensionality ($N = 700$) was substantially larger than the LSTM's hidden dimensionality ($h = 109$), confounding parameter count with representational capacity; and (3) the effect was limited to synthetic chaotic systems where both models approached ceiling performance. The main matched-budget experiments (Section~\ref{sec:single_step}) provide the rigorous, controlled comparison; this observation is noted as suggestive evidence for the practical parameter efficiency of reservoir computing in well-characterized dynamical systems.
+
+---
+
+## Post-Hoc Fix: Train+Val Boundary Windows (2026-03-30)
+
+**Status: Fix applied to code. NOT used to re-run V2 experiments. Documented for completeness.**
+
+### Problem
+
+The final retrain step used `np.concatenate([X_train, X_val])` to combine
+pre-windowed arrays. This misses `n_in + n_out - 1 = 100` sliding windows
+that span the train/val split boundary (4.2% data loss: 2300 vs 2400 windows
+at tf=0.5).
+
+Fixed in `run_final_v2.py` and `run_multi_step_v2.py` by reconstructing
+windows on the continuous train+val sequence via `_make_trainval_windows()`.
+
+### Empirical impact on test MSE (seed=42, tf=0.5)
+
+**PyReCo**: negligible, -1% to -3% across all conditions. Ridge regression
+is a closed-form solution; 100 highly redundant windows barely change the
+Gram matrix.
+
+**LSTM**: -37% to +92% across conditions. The largest outlier is lorenz small
+(+92%), caused by a cascading batch-boundary effect:
+
+1. 2300→2400 samples changes batch count per epoch (72→75 with batch_size=32)
+2. DataLoader shuffle reorders differently, changing every batch's gradient
+3. Early stopping triggers at epoch 57 instead of 68
+4. Best validation loss worsens: 0.0000201 → 0.0000265
+
+This is NOT the boundary windows being harmful — it is SGD path dependence.
+Control experiment on the SAME data with different seeds shows far larger variance:
+
+| Seed | MSE | Relative to seed=42 |
+|------|-----|---------------------|
+| 42 | 0.00021721 | 1.0x (baseline) |
+| 43 | 0.00644109 | 29.7x |
+| 44 | 0.00036854 | 1.7x |
+
+LSTM small (h=14, ~1000 params) on lorenz (D=3) is inherently unstable —
+seed-to-seed variance is 30x, dwarfing the 1.9x from the boundary fix.
+PyReCo is stable because ridge regression has no batch/epoch/early-stopping
+path dependence.
+
+### Conclusion
+
+- Hyperparameter selection: unaffected (tuning uses separate X_train/X_val)
+- Winner determination: unchanged across all 6 tested conditions
+- Existing V2 results are statistically equivalent; not re-run
