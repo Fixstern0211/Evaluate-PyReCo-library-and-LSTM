@@ -586,3 +586,60 @@ path dependence.
 - Hyperparameter selection: unaffected (tuning uses separate X_train/X_val)
 - Winner determination: unchanged across all 6 tested conditions
 - Existing V2 results are statistically equivalent; not re-run
+
+---
+
+## Thesis Content To Add (2026-03-30)
+
+Content generated from V2 experiments and analysis fixes. Organized by chapter.
+
+### Ch3 Methods — Statistical Testing
+
+> Statistical significance of paired comparisons was assessed using paired t-tests with Holm-Bonferroni correction for multiple comparisons.
+
+### Ch3 Methods — Green Computing Measurement
+
+> Energy consumption was estimated using CodeCarbon v3.2.1 (Lottick et al., 2019) with country code DEU (Germany, grid carbon intensity approximately 0.338 kg CO$_2$/kWh). Power draw was estimated via CPU TDP and utilization; Apple MPS GPU computation is not captured by CodeCarbon. To ensure comparable measurement, LSTM was forced to run on CPU during green metrics collection. Peak memory was measured via \texttt{tracemalloc} for PyReCo (Python heap) and \texttt{psutil} RSS delta for LSTM (system-level, includes PyTorch C++ backend).
+
+Script: `experiments/measure_green_metrics_v2.py`
+Data: `results/green_metrics_v2/green_metrics_v2.json`
+
+### Ch4 Results — Green Computing Table
+
+18 conditions measured (3 datasets × 3 budgets × 2 models, seed=42, tf=0.5):
+
+| Metric | PyReCo | LSTM |
+|--------|--------|------|
+| Total energy (all 9 conditions) | 0.0082 kWh | 0.0035 kWh |
+| Energy ratio (large/small) | 20-50× (O(N²)) | ~1× (stable) |
+| Memory range | 460-3190 MB | 1.6-81 MB |
+| Inference speed | 0.5-31 ms/sample | 0.02-0.1 ms/sample |
+
+Suggested table: use `results/tables/v2/green_metrics_comparison.csv`
+
+### Ch4 Results — Multi-Step Significance (Holm-corrected)
+
+Previous uncorrected counts were inflated. Corrected values:
+
+| Horizon | Significant (Holm) | Significant (uncorrected) |
+|---------|--------------------|--------------------------|
+| h=1 | 30/54 | 48/54 |
+| h=5 | 18/54 | 49/54 |
+| h=10 | 8/54 | 36/54 |
+| h=20 | 8/54 | 33/54 |
+| h=50 | 4/54 | 30/54 |
+| **Total** | **68/270** | **196/270** |
+
+Use only Holm-corrected numbers in thesis.
+
+### Ch5 Discussion — Energy Scaling
+
+> Under matched parameter budgets, PyReCo consumed approximately 2.4 times more total energy than LSTM across all conditions. PyReCo's energy scales as O(N$^2$) with reservoir size: the large-to-small energy ratio was 20--50×, consistent with the quadratic cost of ridge regression on the reservoir state matrix. In contrast, LSTM's energy remained largely constant across budgets, as training time is dominated by epoch count and early stopping rather than per-step computation. The training speed advantage commonly attributed to reservoir computing was confirmed only at the small parameter budget (~1,000 parameters), where PyReCo trained 4--10× faster. At medium and large budgets, LSTM trained 6--24× faster than PyReCo.
+
+### Not for Thesis
+
+- trainval boundary window fix (negligible impact, documented above)
+- Parameter breakdown figure `first()` bug (fixed, internal)
+- Holm correction missing due to statsmodels not installed (fixed, internal)
+- Resume logic bug in run_final_v2.py (fixed, no data impact)
+- Device metadata addition (code improvement)

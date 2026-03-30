@@ -138,6 +138,25 @@ def analyze(df, output_dir):
         })
 
     comp_df = pd.DataFrame(comparisons)
+
+    # Holm-Bonferroni correction across all comparisons
+    if HAS_STATSMODELS:
+        for metric_p in ["r2_p", "mse_p"]:
+            metric_corr = metric_p.replace("_p", "_p_corr")
+            valid = comp_df[metric_p].notna()
+            if valid.sum() > 0:
+                _, p_corr, _, _ = multipletests(
+                    comp_df.loc[valid, metric_p].values,
+                    alpha=0.05, method="holm",
+                )
+                comp_df[metric_corr] = np.nan
+                comp_df.loc[valid, metric_corr] = p_corr
+            else:
+                comp_df[metric_corr] = np.nan
+    else:
+        comp_df["r2_p_corr"] = comp_df["r2_p"]
+        comp_df["mse_p_corr"] = comp_df["mse_p"]
+
     comp_df.to_csv(output_dir / "multistep_comparisons.csv", index=False)
 
     # === Pivot table for figures: per (dataset, budget, horizon) ===
@@ -178,8 +197,11 @@ def analyze(df, output_dir):
             continue
         p_wins = (hdf["r2_winner"] == "PyReCo").sum()
         l_wins = (hdf["r2_winner"] == "LSTM").sum()
-        sig = hdf[hdf["r2_p"].notna() & (hdf["r2_p"] < 0.05)]
-        lines.append(f"  h={h:>3}: PyReCo {p_wins}/{len(hdf)}, LSTM {l_wins}/{len(hdf)}, significant: {len(sig)}/{len(hdf)}")
+        sig_uncorr = hdf[hdf["r2_p"].notna() & (hdf["r2_p"] < 0.05)]
+        sig_corr = hdf[hdf["r2_p_corr"].notna() & (hdf["r2_p_corr"] < 0.05)]
+        lines.append(f"  h={h:>3}: PyReCo {p_wins}/{len(hdf)}, LSTM {l_wins}/{len(hdf)}, "
+                      f"significant: {len(sig_corr)}/{len(hdf)} (Holm-corrected), "
+                      f"{len(sig_uncorr)}/{len(hdf)} (uncorrected)")
 
     # Per dataset summary
     for ds in sorted(df["dataset"].unique()):

@@ -314,36 +314,51 @@ def fig_horizon_degradation():
 # ═══════════════════════════════════════════════════════════════════════════
 def fig_param_breakdown():
     df = load_v2_raw()
-    # Get representative param counts: first entry per (budget, model_type)
-    param_info = df.groupby(["budget", "model_type"]).agg(
-        trainable=("trainable_params", "first"),
-        total=("total_params", "first"),
+    # Parameter counts vary by dataset (d_in: lorenz=3, others=1).
+    # Show per-dataset bars grouped by budget.
+    datasets = sorted(df["dataset"].unique())
+    avail = [b for b in BUDGET_ORDER if b in df["budget"].values]
+
+    # Aggregate: median per (dataset, budget, model_type) across seeds/train_fracs
+    param_info = df.groupby(["dataset", "budget", "model_type"]).agg(
+        trainable=("trainable_params", "median"),
+        total=("total_params", "median"),
     ).reset_index()
 
-    avail = [b for b in BUDGET_ORDER if b in param_info["budget"].values]
-    pyreco = param_info[param_info["model_type"] == "pyreco_standard"].set_index("budget").reindex(avail)
-    lstm = param_info[param_info["model_type"] == "lstm"].set_index("budget").reindex(avail)
-
-    labels = [BUDGET_LABELS[b].replace("\n", " ") for b in avail]
-
-    fig, axes = plt.subplots(1, 2, figsize=(8, 3.5))
-    x = np.arange(len(avail))
+    fig, axes = plt.subplots(1, 2, figsize=(9, 3.5))
+    n_ds = len(datasets)
+    n_budgets = len(avail)
+    bar_width = 0.25
+    x = np.arange(n_budgets)
+    ds_colors = {datasets[i]: c for i, c in enumerate(["#2196F3", "#FF9800", "#4CAF50"])}
 
     # PyReCo
     ax = axes[0]
-    fixed = (pyreco["total"] - pyreco["trainable"]).tolist()
-    trainable = pyreco["trainable"].tolist()
-    ax.bar(x, fixed, color=COLOR_PYRECO, alpha=0.4, label="Fixed (reservoir)")
-    ax.bar(x, trainable, bottom=fixed, color=COLOR_PYRECO, alpha=0.85, label="Trainable (readout)")
-    ax.set_xticks(x); ax.set_xticklabels(labels, fontsize=8)
+    for i, ds in enumerate(datasets):
+        sub = param_info[(param_info["model_type"] == "pyreco_standard") & (param_info["dataset"] == ds)]
+        sub = sub.set_index("budget").reindex(avail)
+        fixed = (sub["total"] - sub["trainable"]).values
+        trainable = sub["trainable"].values
+        offset = (i - (n_ds - 1) / 2) * bar_width
+        ax.bar(x + offset, fixed, bar_width * 0.9, color=ds_colors[ds], alpha=0.4)
+        ax.bar(x + offset, trainable, bar_width * 0.9, bottom=fixed,
+               color=ds_colors[ds], alpha=0.85, label=ds.capitalize())
+    ax.set_xticks(x)
+    ax.set_xticklabels([BUDGET_LABELS[b].replace("\n", " ") for b in avail], fontsize=8)
     ax.set_ylabel("Parameters"); ax.set_title("PyReCo (ESN)")
-    ax.legend(fontsize=8); ax.set_yscale("log")
+    ax.legend(fontsize=7); ax.set_yscale("log")
 
     # LSTM
     ax = axes[1]
-    ax.bar(x, lstm["trainable"].tolist(), color=COLOR_LSTM, alpha=0.85, label="Trainable (all)")
-    ax.set_xticks(x); ax.set_xticklabels(labels, fontsize=8)
-    ax.set_title("LSTM"); ax.legend(fontsize=8); ax.set_yscale("log")
+    for i, ds in enumerate(datasets):
+        sub = param_info[(param_info["model_type"] == "lstm") & (param_info["dataset"] == ds)]
+        sub = sub.set_index("budget").reindex(avail)
+        offset = (i - (n_ds - 1) / 2) * bar_width
+        ax.bar(x + offset, sub["trainable"].values, bar_width * 0.9,
+               color=ds_colors[ds], alpha=0.85, label=ds.capitalize())
+    ax.set_xticks(x)
+    ax.set_xticklabels([BUDGET_LABELS[b].replace("\n", " ") for b in avail], fontsize=8)
+    ax.set_title("LSTM"); ax.legend(fontsize=7); ax.set_yscale("log")
 
     fig.suptitle("Parameter Budget Breakdown", fontsize=12, y=1.02)
     fig.tight_layout()
