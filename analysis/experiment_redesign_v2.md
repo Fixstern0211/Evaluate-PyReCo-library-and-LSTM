@@ -636,6 +636,169 @@ Use only Holm-corrected numbers in thesis.
 
 > Under matched parameter budgets, PyReCo consumed approximately 2.4 times more total energy than LSTM across all conditions. PyReCo's energy scales as O(N$^2$) with reservoir size: the large-to-small energy ratio was 20--50×, consistent with the quadratic cost of ridge regression on the reservoir state matrix. In contrast, LSTM's energy remained largely constant across budgets, as training time is dominated by epoch count and early stopping rather than per-step computation. The training speed advantage commonly attributed to reservoir computing was confirmed only at the small parameter budget (~1,000 parameters), where PyReCo trained 4--10× faster. At medium and large budgets, LSTM trained 6--24× faster than PyReCo.
 
+### Ch4 Results — Training Time Comparison
+
+#### LSTM tuning time breakdown (measured: seed=42, tf=0.7)
+
+Actual rerun of all 9 (dataset, budget) conditions with full 32-combo grid search.
+All values are directly measured, not estimated.
+
+| Dataset      | Budget | hidden | layers | per_epoch | avg_epochs | per_combo | 32_combo_total |
+|--------------|--------|--------|--------|-----------|------------|-----------|----------------|
+| Lorenz       | small  | 13     | 1      | 0.646s    | 57/100     | 46.5s     | 1858s          |
+| Lorenz       | medium | 47     | 1      | 0.829s    | 27/100     | 33.1s     | 1323s          |
+| Lorenz       | large  | 63     | 2      | 1.919s    | 18/100     | 39.4s     | 1575s          |
+| Mackey-Glass | small  | 14     | 1      | 0.689s    | 63/100     | 42.6s     | 1704s          |
+| Mackey-Glass | medium | 28     | 2      | 1.433s    | 36/100     | 42.8s     | 1713s          |
+| Mackey-Glass | large  | 63     | 2      | 2.102s    | 33/100     | 66.9s     | 2676s          |
+| Santa Fe     | small  | 14     | 1      | 0.674s    | 54/100     | 44.6s     | 1784s          |
+| Santa Fe     | medium | 28     | 2      | 1.496s    | 33/100     | 40.6s     | 1623s          |
+| Santa Fe     | large  | 63     | 2      | 2.152s    | 31/100     | 66.1s     | 2646s          |
+
+Data source: `results/tables/v2/lstm_training_time_breakdown.json`
+
+#### Comparison with V1-injected LSTM results
+
+The rerun selected different best configs than the V1-injected results in some
+cases, particularly for medium and large budgets where 2-layer architectures
+were preferred:
+
+| Dataset      | Budget | Old hidden | Old layers | Old tune | New hidden | New layers | New tune |
+|--------------|--------|------------|------------|----------|------------|------------|----------|
+| Lorenz       | small  | 14         | 1          | 1593s    | 13         | 1          | 1858s    |
+| Lorenz       | medium | 48         | 1          | 1146s    | 47         | 1          | 1323s    |
+| Lorenz       | large  | 109        | 1          | 1231s    | 63         | 2          | 1575s    |
+| Mackey-Glass | small  | 15         | 1          | 2758s    | 14         | 1          | 1704s    |
+| Mackey-Glass | medium | 49         | 1          | 1728s    | 28         | 2          | 1713s    |
+| Mackey-Glass | large  | 64         | 2          | 1325s    | 63         | 2          | 2676s    |
+| Santa Fe     | small  | 15         | 1          | 2574s    | 14         | 1          | 1784s    |
+| Santa Fe     | medium | 49         | 1          | 1705s    | 28         | 2          | 1623s    |
+| Santa Fe     | large  | 111        | 1          | 1567s    | 63         | 2          | 2646s    |
+
+**Trend comparison (S=small, M=medium, L=large total tuning time):**
+- Lorenz:       Old S>M, S>L → New S>M, S>L  ✓ consistent
+- Mackey-Glass: Old S>M>L    → New S<M<L     ✗ **reversed** (large now slowest)
+- Santa Fe:     Old S>M>L    → New S>M, S<L  ✗ **partially reversed**
+
+The reversal is caused by the rerun selecting 2-layer architectures at medium/large
+budgets. A 2-layer LSTM with h=28 has higher per-epoch cost (1.43s) than a 1-layer
+with h=49 (0.64s) due to sequential layer computation, even though it has fewer
+total parameters. This makes per-combo time at medium/large longer despite fewer
+epochs.
+
+#### LSTM tuning time summary from V1 data (32-combo grid, seconds, mean±std, n=30 per cell)
+
+| Dataset      | Small (1K)  | Medium (10K) | Large (50K) |
+|--------------|-------------|--------------|-------------|
+| Lorenz       | 1995 ± 2216 | 1129 ± 385   | 1347 ± 1559 |
+| Mackey-Glass | 1675 ± 708  | 1239 ± 485   | 1134 ± 427  |
+| Santa Fe     | 1328 ± 549  | 1001 ± 406   | 1029 ± 410  |
+
+Note: These are from the V1-injected LSTM results (n=30 seeds × train_fracs).
+The rerun (single seed=42, tf=0.7) shows different trends for Mackey-Glass and
+Santa Fe, suggesting the aggregate statistics may not be representative.
+
+#### PyReCo final training time (single best config, seconds, mean±std, n=30)
+
+| Dataset      | Small (1K)  | Medium (10K)  | Large (50K)   |
+|--------------|-------------|---------------|---------------|
+| Lorenz       | 4.3 ± 1.9   | 176.3 ± 117.0 | 442.4 ± 319.9 |
+| Mackey-Glass | 9.7 ± 4.6   | 171.5 ± 80.3  | 236.0 ± 129.2 |
+| Santa Fe     | 9.7 ± 4.5   | 162.6 ± 72.7  | 187.8 ± 68.9  |
+
+#### Key observations
+
+1. **LSTM tuning time depends on both per-epoch cost and epoch count.** Per-epoch
+   cost increases with hidden_size and num_layers. Epoch count decreases at larger
+   budgets due to earlier early stopping. The net effect on total tuning time is
+   dataset-dependent and depends on which architecture (1-layer vs 2-layer) is
+   selected as best.
+2. **For Lorenz**, the trend is consistent: small budget has the longest tuning
+   time because per-epoch cost is low but epoch count is high (~57 vs ~18–27).
+3. **For Mackey-Glass and Santa Fe**, the rerun shows large budget can have the
+   longest tuning time when 2-layer architectures are preferred. The 2-layer
+   LSTM has higher per-epoch cost despite smaller hidden_size (sequential layer
+   computation), and this outweighs the reduction in epoch count.
+4. **PyReCo training time increases sharply with budget**: Scales from ~5–10s (small)
+   to ~190–440s (large), consistent with ridge regression cost O(N²·T) where
+   N is the reservoir size (140–235 for small, 930–982 for large).
+5. **Crossover point**: PyReCo trains faster than LSTM at the small budget
+   (~5–10s vs ~1700–1860s tuning). At all budgets, LSTM tuning (32-combo grid
+   search) dominates total time.
+
+### Ch4 Results — PyReCo vs LSTM Full Timing Comparison (seed=42, tf=0.7)
+
+All values from actual reruns or existing result files for seed=42, tf=0.7.
+
+#### Single retrain time (best config trained once on train+val)
+
+| Dataset      | Budget | PyReCo (N)     | LSTM (h, L)     | Faster     |
+|--------------|--------|----------------|-----------------|------------|
+| Lorenz       | small  | 5.4s (N=140)   | 54.9s (h=13,L1) | PyReCo 10x |
+| Lorenz       | medium | 397.1s (N=754) | 18.2s (h=47,L1) | LSTM 22x   |
+| Lorenz       | large  | 778.9s (N=944) | 69.1s (h=63,L2) | LSTM 11x   |
+| Mackey-Glass | small  | 14.0s (N=235)  | 20.7s (h=14,L1) | PyReCo 1.5x|
+| Mackey-Glass | medium | 251.0s (N=909) | 47.3s (h=28,L2) | LSTM 5x    |
+| Mackey-Glass | large  | 424.9s (N=981) | 58.9s (h=63,L2) | LSTM 7x    |
+| Santa Fe     | small  | 13.2s (N=235)  | 27.0s (h=14,L1) | PyReCo 2x  |
+| Santa Fe     | medium | 247.4s (N=909) | 32.9s (h=28,L2) | LSTM 8x    |
+| Santa Fe     | large  | 266.8s (N=981) | 90.4s (h=63,L2) | LSTM 3x    |
+
+PyReCo is faster only at the small budget (closed-form ridge regression on a
+small reservoir). At medium/large budgets, PyReCo's O(N²·T) cost makes it
+3–22× slower than LSTM's iterative training.
+
+#### Full tuning time (grid search: PyReCo combos vs LSTM 32 combos)
+
+| Dataset      | Budget | PyReCo combos | LSTM 32-combo | LSTM/PyReCo |
+|--------------|--------|---------------|---------------|-------------|
+| Lorenz       | small  | 108 × 5.4s    | 1858s         | LSTM 3.2x   |
+| Lorenz       | medium | 108 × 397.1s  | 1323s         | PyReCo 32x  |
+| Lorenz       | large  | 72 × 778.9s   | 1575s         | PyReCo 36x  |
+| Mackey-Glass | small  | 16 × 14.0s    | 1704s         | LSTM 7.6x   |
+| Mackey-Glass | medium | 16 × 251.0s   | 1713s         | PyReCo 2.3x |
+| Mackey-Glass | large  | 8 × 424.9s    | 2676s         | PyReCo 1.3x |
+| Santa Fe     | small  | 36 × 13.2s    | 1784s         | LSTM 3.8x   |
+| Santa Fe     | medium | 36 × 247.4s   | 1623s         | PyReCo 5.5x |
+| Santa Fe     | large  | 18 × 266.8s   | 2646s         | PyReCo 1.8x |
+
+Note: PyReCo total tuning = combos × single train time is a rough estimate
+(actual per-combo time varies with N). At medium/large budgets, PyReCo total
+tuning time exceeds LSTM because each of the many combos involves an expensive
+ridge regression, while LSTM combos use early stopping to limit epochs.
+
+#### Inference time (ms/sample, seed=42, tf=0.7)
+
+| Dataset      | Budget | PyReCo       | LSTM         | PyReCo slower |
+|--------------|--------|--------------|--------------|---------------|
+| Lorenz       | small  | 0.752 ms     | 0.0041 ms    | 186×          |
+| Lorenz       | medium | 25.945 ms    | 0.0091 ms    | 2853×         |
+| Lorenz       | large  | 85.816 ms    | 0.0207 ms    | 4140×         |
+| Mackey-Glass | small  | 1.850 ms     | 0.0052 ms    | 358×          |
+| Mackey-Glass | medium | 34.413 ms    | 0.0188 ms    | 1831×         |
+| Mackey-Glass | large  | 61.709 ms    | 0.0180 ms    | 3437×         |
+| Santa Fe     | small  | 1.822 ms     | 0.0063 ms    | 291×          |
+| Santa Fe     | medium | 35.549 ms    | 0.0128 ms    | 2788×         |
+| Santa Fe     | large  | 39.665 ms    | 0.0248 ms    | 1602×         |
+
+#### Key observations
+
+1. **Single retrain**: PyReCo is faster only at small budget (1.5–10×). At
+   medium/large, LSTM is 3–22× faster. The crossover occurs because PyReCo's
+   ridge regression scales as O(N²·T) while LSTM training time is bounded by
+   early stopping.
+2. **Full tuning**: At small budget, LSTM tuning (32 combos × many epochs) is
+   slower. At medium/large, PyReCo tuning (many combos × expensive ridge) becomes
+   slower because each combo is an independent expensive computation with no
+   early stopping equivalent.
+3. **Inference**: LSTM is **186–4140× faster** across all conditions. LSTM uses
+   a single batched forward pass (PyTorch optimized BLAS), while PyReCo must
+   sequentially update the N-dimensional reservoir state for each of 100 input
+   timesteps per sample (O(N²·seq_len) per sample).
+4. **Scaling**: PyReCo inference time grows steeply with N (0.8ms at N=140 →
+   86ms at N=944). LSTM inference grows mildly (0.004ms at h=13 → 0.025ms at
+   h=63), as PyTorch amortizes overhead across the batch.
+
 ### Not for Thesis
 
 - trainval boundary window fix (negligible impact, documented above)
